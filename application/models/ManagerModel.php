@@ -1,5 +1,5 @@
 <?php
-class LoginModel extends CI_Model
+class ManagerModel extends CI_Model
 {
     public function signup($table, $data)
     {
@@ -15,4 +15,6 @@ class LoginModel extends CI_Model
             echo '<br>';
         }
     }
+
+    
 }

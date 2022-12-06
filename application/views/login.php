@@ -1,4 +1,4 @@
-<form method="POST" action="<?= base_url() ?>login/login">
+<form method="POST" action="<?= base_url() ?>login/signup">
 	<input type="text" name="username" placeholder="Enter username">
 	<br>
 	<input type="password" name="password" placeholder="Enter password">

@@ -6,7 +6,7 @@ class Login extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('LoginModel');
+		$this->load->model('ManagerModel');
 	}
 
 	public function index()
@@ -21,7 +21,7 @@ class Login extends CI_Controller
 		$username = $_POST['username'];
 		$password = $_POST['password'];
 		$data = array('manager_username' => $username, 'manager_password' => $password);
-		$this->LoginModel->signup('tbl_manager', $data);
+		$this->ManagerModel->signup('tbl_manager', $data);
 	}
 
 	public function login()
@@ -29,6 +29,6 @@ class Login extends CI_Controller
 		$username = $_POST['username'];
 		$password = $_POST['password'];
 		$data = array('manager_username' => $username, 'manager_password' => $password);
-		$this->LoginModel->login('tbl_manager', $data);
+		$this->ManagerModel->login('tbl_manager', $data);
 	}
 }
