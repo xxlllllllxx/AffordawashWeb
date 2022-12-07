@@ -18,7 +18,7 @@ class Control extends CI_Controller
 
 	public function login()
 	{
-		$data = array('username' => 'Admin1234', 'password' => 'Admin1234');
+		$data = array('username' => $_POST['username'], 'password' => $_POST['password']);
 		$data['login'] = '';
 		$data = $this->DatabaseModel->login($data);
 		if ($data['login'] == 'manager') {
@@ -121,7 +121,7 @@ class Control extends CI_Controller
 	{
 		$data = $this->DatabaseModel->getCustomerList();
 		foreach ($data as $list => $value) {
-			echo '';
+			echo "$list $value[employee] $value[machine_used] $value[items_bought] $value[total_payment] $value[date]<br>";
 		}
 	}
 }
