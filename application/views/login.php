@@ -5,4 +5,3 @@
 	<br>
 	<input type="submit" value="SUBMIT">
 </form>
-<?= date('F j, Y h:i:s'); ?>
