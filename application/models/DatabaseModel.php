@@ -12,12 +12,18 @@ class DatabaseModel extends CI_Model
         if ($manager) {
             if ($data['password'] == $manager->manager_password) {
                 $data['login'] = 'manager';
+                $data['password'] = '********';
+                $data['name'] = $manager->name;
+                $data['title'] = $manager->title;
             }
         } else {
             $employee = $this->db->get_where('tbl_employee', ['employee_username' => $data['username']])->row();
             if ($employee) {
                 if ($data['password'] == $employee->employee_password) {
                     $data['login'] = 'employee';
+                    $data['password'] = '********';
+                    $data['name'] = $employee->name;
+                    $data['title'] = 'employee';
                 }
             }
         }
