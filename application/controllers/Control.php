@@ -16,18 +16,15 @@ class Control extends CI_Controller
 		header('Location ' . base_url());
 	}
 
-	public function loginControl()
+	public function login()
 	{
-		$data = array('username' => 'lewis', 'password' => '1234');
+		$data = array('username' => 'Admin1234', 'password' => 'Admin1234');
+		$data['login'] = '';
 		$data = $this->DatabaseModel->login($data);
-		$this->load->view('layout/header');
-		if ($data['is_logged_in']) {
-			if ($data['login'] == 'manager') {
-				echo 'logged in as manager';
-			} else {
-				echo 'logged in as employee';
-				$this->employeeId = $data['id'];
-			}
+		if ($data['login'] == 'manager') {
+			echo 'logged in as manager';
+		} else if ($data['login'] == 'employee') {
+			echo 'Logged in as Employee';
 		} else {
 			echo 'Login failed';
 		}

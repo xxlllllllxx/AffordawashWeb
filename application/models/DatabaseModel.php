@@ -8,7 +8,19 @@ class DatabaseModel extends CI_Model
 
     public function login($data)
     {
-        $this->db->query();
+        $manager = $this->db->get_where('tbl_manager', ['manager_username' => $data['username']])->row();
+        if ($manager) {
+            if ($data['password'] == $manager->manager_password) {
+                $data['login'] = 'manager';
+            }
+        } else {
+            $employee = $this->db->get_where('tbl_employee', ['employee_username' => $data['username']])->row();
+            if ($employee) {
+                if ($data['password'] == $employee->employee_password) {
+                    $data['login'] = 'employee';
+                }
+            }
+        }
         return $data;
     }
 
