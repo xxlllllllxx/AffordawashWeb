@@ -190,6 +190,8 @@ class Main extends CI_Controller
 					$this->load->view('warning/employee_not_added');
 				}
 				break;
+			case 'addItem':
+				break;
 			default:
 				break;
 		}
