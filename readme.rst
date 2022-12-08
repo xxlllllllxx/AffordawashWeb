@@ -1,3 +1,13 @@
+to sync database
+> paste the whole db_affordawash folder from fetched project files to xampp >mysql > data
+
+
+
+
+
+
+
+
 ###################
 What is CodeIgniter
 ###################
