@@ -20,9 +20,49 @@ class Main extends CI_Controller
 			case 'item':
 				return $this->DatabaseModel->addItem($data);
 			case 'service':
-				return $this->DatabaseModel->addService($data);
+				if ($data['washing'] == 'true' || $data['drying'] == 'true') {
+					return $this->DatabaseModel->addService($data);
+				} else {
+					return false;
+				}
 			case 'customer':
 				return ($_SESSION['user_data']['login'] == 'employee' && $this->DatabaseModel->addCustomer($data));
+			default:
+				return false;
+		}
+	}
+
+	private function updateData($table, $rawData)
+	{
+		$data = $rawData;
+		switch ($table) {
+			case 'employee':
+				return $this->DatabaseModel->updateEmployee($data);
+			case 'item':
+				return $this->DatabaseModel->updateItem($data);
+			case 'service':
+				$x = 0;
+				if ($data['has_wash'] == 'true') {
+					$data['washing'] = 'true';
+					$x += 1;
+				} else {
+					$data['washing'] = 'false';
+					$data['wash_price'] = '0';
+				}
+				if ($data['has_dry'] == 'true') {
+					$data['drying'] = 'true';
+					$x += 1;
+				} else {
+					$data['drying'] = 'false';
+					$data['dry_price'] = '0';
+				}
+				if ($x > 0) {
+					return $this->DatabaseModel->updateService($data);
+				} else {
+					return false;
+				}
+			case 'customer':
+				return ($_SESSION['user_data']['login'] == 'employee' && $this->DatabaseModel->updateCustomer($data));
 			default:
 				return false;
 		}
@@ -186,6 +226,54 @@ class Main extends CI_Controller
 			$_SESSION['info'] = array('text' => "Service $data[service_name] added Successfully");
 		} else {
 			$_SESSION['info'] = array('text' => "Failed to add Service $data[name]");
+		}
+		header('Location: ' . base_url('main/manager/info'));
+	}
+
+	public function updateEmployee()
+	{
+		$data = array(
+			'id' => $_POST['id'],
+			'salary' => $_POST['salary']
+		);
+		if ($this->updateData('employee', $data)) {
+			$_SESSION['info'] = array('text' => "Employee updated Successfully");
+		} else {
+			$_SESSION['info'] = array('text' => "Failed to update Employee");
+		}
+		header('Location: ' . base_url('main/manager/info'));
+	}
+
+	public function updateItem()
+	{
+		$data = array(
+			'id' => $_POST['id'],
+			'quantity' => $_POST['quantity'],
+			'cost' => $_POST['cost'],
+			'lowest_price' => $_POST['lprice'],
+			'selling_price' => $_POST['sprice']
+		);
+		if ($this->updateData('item', $data)) {
+			$_SESSION['info'] = array('text' => "Item updated Successfully");
+		} else {
+			$_SESSION['info'] = array('text' => "Failed to update Item");
+		}
+		header('Location: ' . base_url('main/manager/info'));
+	}
+
+	public function updateService()
+	{
+		$data = array(
+			'id' => $_POST['id'],
+			'has_wash' => $_POST['has_wash'],
+			'has_dry' => $_POST['has_dry'],
+			'wash_price' => $_POST['wash_price'],
+			'dry_price' => $_POST['dry_price'],
+		);
+		if ($this->updateData('service', $data)) {
+			$_SESSION['info'] = array('text' => "Service updated Successfully");
+		} else {
+			$_SESSION['info'] = array('text' => "Failed to update Service");
 		}
 		header('Location: ' . base_url('main/manager/info'));
 	}

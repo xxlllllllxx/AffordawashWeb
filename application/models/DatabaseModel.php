@@ -90,6 +90,7 @@ class DatabaseModel extends CI_Model
         $data = null;
         foreach ($query->result() as $employee) {
             $data['list'][$employee->id] = array(
+                'id' => $employee->id,
                 'name' => $employee->name,
                 'username' => $employee->employee_username,
                 'salary' => $employee->employee_salary,
@@ -106,6 +107,7 @@ class DatabaseModel extends CI_Model
         $data = null;
         foreach ($query->result() as $product) {
             $data['list'][$product->id] = array(
+                'id' => $product->id,
                 'name' => $product->item_name,
                 'quantity' => $product->item_quantity,
                 'cost' => $product->item_cost,
@@ -123,6 +125,7 @@ class DatabaseModel extends CI_Model
         $data = null;
         foreach ($query->result() as $machine) {
             $data['list'][$machine->id] = array(
+                'id' => $machine->id,
                 'name' => $machine->service_name,
                 'has_wash' => $machine->washing,
                 'has_dry' => $machine->drying,
@@ -148,6 +151,38 @@ class DatabaseModel extends CI_Model
             );
         }
         return $data;
+    }
+
+    public function updateEmployee($data)
+    {
+        $this->db->db_debug = false;
+        $this->db->set('employee_salary', $data['salary']);
+        $this->db->where('id', $data['id']);
+        $this->db->update('tbl_employee');
+        return $this->db->affected_rows();
+    }
+    public function updateItem($data)
+    {
+        $this->db->db_debug = false;
+        $this->db->set('item_quantity', $data['quantity']);
+        $this->db->set('item_cost', $data['cost']);
+        $this->db->set('item_lowest_price', $data['lowest_price']);
+        $this->db->set('item_selling_price', $data['selling_price']);
+        $this->db->where('id', $data['id']);
+        $this->db->update('tbl_item');
+        return $this->db->affected_rows();
+    }
+
+    public function updateService($data)
+    {
+        $this->db->db_debug = false;
+        $this->db->set('washing', $data['washing']);
+        $this->db->set('drying', $data['drying']);
+        $this->db->set('washing_price', $data['wash_price']);
+        $this->db->set('drying_price', $data['dry_price']);
+        $this->db->where('id', $data['id']);
+        $this->db->update('tbl_machine');
+        return $this->db->affected_rows();
     }
 
     private function getEmployeeName($id)

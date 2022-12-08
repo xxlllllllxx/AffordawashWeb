@@ -2,14 +2,13 @@
 <table>
     <?php foreach ($list as $item) { ?>
         <tr>
-            <form action="#">
-                <td><b><?= $item['name']; ?></b></td>
-                <td><input type="number" placeholder="<?= $item['quantity']; ?>"></td>
-                <td><input type="number" placeholder="<?= $item['cost']; ?>"></td>
-                <td><input type="number" placeholder="<?= $item['lowest_price']; ?>"></td>
-                <td><input type="number" placeholder="<?= $item['selling_price']; ?>"></td>
-                <td><input type="submit" value="UPDATE ITEM"></td>
-                <td><input type="submit" value="DELETE ITEM"></td>
+            <form method="POST" action="<?= base_url('main/updateItem'); ?>">
+                <td><input type="hidden" name="id" value="<?= $item['id']; ?>"><b><?= $item['name']; ?></b></td>
+                <td><input type="number" name="quantity" value="<?= $item['quantity']; ?>" placeholder="<?= $item['quantity']; ?>" va></td>
+                <td><input type="number" name="cost" value="<?= $item['cost']; ?>" placeholder="<?= $item['cost']; ?>"></td>
+                <td><input type="number" name="lprice" value="<?= $item['lowest_price']; ?>" placeholder="<?= $item['lowest_price']; ?>"></td>
+                <td><input type="number" name="sprice" value="<?= $item['selling_price']; ?>" placeholder="<?= $item['selling_price']; ?>"></td>
+                <td><input type="submit" value="UPDATE ITEM DATA"></td>
             </form>
         </tr>
     <?php } ?>
