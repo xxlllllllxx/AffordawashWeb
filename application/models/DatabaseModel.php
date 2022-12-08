@@ -15,6 +15,9 @@ class DatabaseModel extends CI_Model
                 $data['password'] = '********';
                 $data['name'] = $manager->name;
                 $data['title'] = $manager->title;
+                $data['employee_count'] = $this->getTblCount('tbl_employee');
+                $data['item_count'] = $this->getTblCount('tbl_item');
+                $data['service_count'] = $this->getTblCount('tbl_machine');
             }
         } else {
             $employee = $this->db->get_where('tbl_employee', ['employee_username' => $data['username']])->row();
@@ -23,10 +26,18 @@ class DatabaseModel extends CI_Model
                     $data['login'] = 'employee';
                     $data['password'] = '********';
                     $data['name'] = $employee->name;
-                    $data['title'] = 'employee';
+                    $data['title'] = 'Employee';
                 }
             }
         }
+        return $data;
+    }
+
+    public function updateData($data)
+    {
+        $data['employee_count'] = $this->getTblCount('tbl_employee');
+        $data['item_count'] = $this->getTblCount('tbl_item');
+        $data['service_count'] = $this->getTblCount('tbl_machine');
         return $data;
     }
 
@@ -185,5 +196,16 @@ class DatabaseModel extends CI_Model
             $str .= $arr2d[$i][1] . ' : ' . $this->getItemName($arr2d[$i][0]) . ' - ' .  $arr2d[$i][2] . '<br>';
         }
         return $str;
+    }
+
+    private function getTblCount($tbl)
+    {
+        $this->db->db_debug = false;
+        $query = $this->db->get($tbl);
+        if ($query) {
+            return count($query->result());
+        } else {
+            return 0;
+        }
     }
 }

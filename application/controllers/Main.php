@@ -3,79 +3,86 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Main extends CI_Controller
 {
-	private $employeeId;
 	public function __construct()
 	{
 		parent::__construct();
 		$this->load->model('DatabaseModel');
+		$this->load->library('session');
 		$this->employeeId = 0;
 	}
 
-
 	// MODELS
-	public function addEmployee()
+	private function addData($table, $rawData)
 	{
-		$data = array('name' => 'lewisa', 'employee_username' => '@lewis', 'employee_password' => '1234', 'name' => 'Lewis Masallo', 'employee_salary' => '300');
-		if ($this->DatabaseModel->addEmployee($data)) {
-			echo 'employee added';
-		} else {
-			echo 'failed to add employee';
+		$data = $rawData;
+		switch ($table) {
+			case 'employee':
+				return $this->DatabaseModel->addEmployee($data);
+			case 'item':
+				return $this->DatabaseModel->addItem($data);
+			case 'service':
+				return $this->DatabaseModel->addService($data);
+			case 'customer':
+				return ($_SESSION['user_data']['login'] == 'employee' && $this->DatabaseModel->addCustomer($data));
+			default:
+				return false;
 		}
 	}
 
-	public function addItem()
-	{
-		$data = array(
-			'item_name' => 'Surfd',
-			'item_quantity' => '50',
-			'item_cost' => '6',
-			'item_lowest_price' => '8',
-			'item_selling_price' => '8',
+	//trials
+	// public function addItem()
+	// {
+	// 	$data = array(
+	// 		'item_name' => 'Surfd',
+	// 		'item_quantity' => '50',
+	// 		'item_cost' => '6',
+	// 		'item_lowest_price' => '8',
+	// 		'item_selling_price' => '8',
 
-		);
-		if ($this->DatabaseModel->addItem($data)) {
-			echo 'item added';
-		} else {
-			echo 'item not added';
-		}
-	}
+	// 	);
+	// 	if ($this->DatabaseModel->addItem($data)) {
+	// 		echo 'item added';
+	// 	} else {
+	// 		echo 'item not added';
+	// 	}
+	// }
 
-	public function addService()
-	{
-		$data = array(
-			'service_name' => 'Superwash',
-			'washing' => '1',
-			'drying' => '0',
-			'washing_price' => '80',
-			'drying_price' => '80',
-		);
-		if ($this->DatabaseModel->addService($data)) {
-			echo 'Service added';
-		} else {
-			echo 'Service not added';
-		}
-	}
+	// public function addService()
+	// {
+	// 	$data = array(
+	// 		'service_name' => 'Superwash',
+	// 		'washing' => '1',
+	// 		'drying' => '0',
+	// 		'washing_price' => '80',
+	// 		'drying_price' => '80',
+	// 	);
+	// 	if ($this->DatabaseModel->addService($data)) {
+	// 		echo 'Service added';
+	// 	} else {
+	// 		echo 'Service not added';
+	// 	}
+	// }
 
-	public function saveCustomerTransaction()
-	{
-		if ($this->employeeId != 0) {
-			$data = array(
-				'customer_alias' => 'Diero',
-				'employee_id' => $this->employeeId,
-				'machine_id_list' => '1 200',
-				'item_id_list' => '1 3 30:2 5 60',
-				'transaction_payment' => '159',
-				'transaction_datetime' => date('m/d/Y h:i:s a', time())
-			);
-			if ($this->DatabaseModel->addCustomer($data)) {
-				echo 'transaction saved';
-			} else {
-				echo 'transaction failed';
-			}
-		} else {
-			echo 'No employee Logged in';
-		}
-	}
+	// public function saveCustomerTransaction()
+	// {
+	// 	if ($this->employeeId != 0) {
+	// 		$data = array(
+	// 			'customer_alias' => 'Diero',
+	// 			'employee_id' => $_SESSION['employee_id'],
+	// 			'machine_id_list' => '1 200',
+	// 			'item_id_list' => '1 3 30:2 5 60',
+	// 			'transaction_payment' => '159',
+	// 			'transaction_datetime' => date('m/d/Y h:i:s a', time())
+	// 		);
+	// 		if ($this->DatabaseModel->addCustomer($data)) {
+	// 			echo 'transaction saved';
+	// 		} else {
+	// 			echo 'transaction failed';
+	// 		}
+	// 	} else {
+	// 		echo 'No employee Logged in';
+	// 	}
+	// }
 
 	public function viewEmployees()
 	{
@@ -118,13 +125,16 @@ class Main extends CI_Controller
 			'password' => $_POST['password']
 		);
 		$data['login'] = '';
+
 		$data = $this->DatabaseModel->login($data);
 		if ($data['login'] == 'manager') {
-			$this->manager($data);
+			$_SESSION['user_data'] = $data;
+			$this->manager('main');
 		} else if ($data['login'] == 'employee') {
-			$this->employee($data);
+			$_SESSION['user_data'] = $data;
+			$this->employee('main');
 		} else {
-			header('Location: ' . base_url(''));
+			$this->index();
 		}
 	}
 
@@ -136,17 +146,53 @@ class Main extends CI_Controller
 		$this->load->view('layout/footer');
 	}
 
-	public function employee($data)
+	public function employee($query)
 	{
+		$_SESSION['user_data'] = $this->DatabaseModel->updateData($_SESSION['user_data']);
 		$this->load->view('layout/header');
-		$this->load->view('employee_view', $data);
+		switch ($query) {
+			case 'main':
+				break;
+			case 'error':
+				break;
+			default:
+				break;
+		}
+		$this->load->view('employee_view', $_SESSION['user_data']);
 		$this->load->view('layout/footer');
 	}
 
-	public function manager($data)
+	public function manager($query)
 	{
+		$_SESSION['user_data'] = $this->DatabaseModel->updateData($_SESSION['user_data']);
+		$data = array();
 		$this->load->view('layout/header');
-		$this->load->view('manager_view', $data);
+		$this->load->view('manager_view', $_SESSION['user_data']);
+		switch ($query) {
+			case 'main':
+				break;
+			case 'error':
+				break;
+			case 'addEmployee':
+				$this->load->view('forms/addEmployee');
+				break;
+			case 'saveEmployee':
+				$data = array(
+					'employee_username' => $_POST['employee_username'],
+					'employee_password' => $_POST['employee_password'],
+					'name' => $_POST['employee_name'],
+					'employee_salary' => $_POST['employee_salary']
+				);
+				if ($this->addData('employee', $data)) {
+					$info = array('text' => 'Employee Added');
+					$this->load->view('info/insert', $info);
+				} else {
+					$this->load->view('warning/employee_not_added');
+				}
+				break;
+			default:
+				break;
+		}
 		$this->load->view('layout/footer');
 	}
 }
