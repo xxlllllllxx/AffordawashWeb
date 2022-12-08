@@ -89,7 +89,7 @@ class DatabaseModel extends CI_Model
         $query = $this->db->get('tbl_employee');
         $data = null;
         foreach ($query->result() as $employee) {
-            $data[$employee->id] = array(
+            $data['list'][$employee->id] = array(
                 'name' => $employee->name,
                 'username' => $employee->employee_username,
                 'salary' => $employee->employee_salary,
@@ -105,7 +105,7 @@ class DatabaseModel extends CI_Model
         $query = $this->db->get('tbl_item');
         $data = null;
         foreach ($query->result() as $product) {
-            $data[$product->id] = array(
+            $data['list'][$product->id] = array(
                 'name' => $product->item_name,
                 'quantity' => $product->item_quantity,
                 'cost' => $product->item_cost,
@@ -122,7 +122,7 @@ class DatabaseModel extends CI_Model
         $query = $this->db->get('tbl_machine');
         $data = null;
         foreach ($query->result() as $machine) {
-            $data[$machine->id] = array(
+            $data['list'][$machine->id] = array(
                 'name' => $machine->service_name,
                 'has_wash' => $machine->washing,
                 'has_dry' => $machine->drying,
@@ -132,14 +132,13 @@ class DatabaseModel extends CI_Model
         }
         return $data;
     }
-
     public function getCustomerList()
     {
         $this->db->db_debug = false;
         $query = $this->db->get('tbl_customer_transact');
         $data = null;
         foreach ($query->result() as $customer) {
-            $data[$customer->id] = array(
+            $data['list'][$customer->id] = array(
                 'name' => $customer->customer_alias,
                 'employee' => $this->getEmployeeName($customer->employee_id),
                 'machine_used' => $this->deconstructMachineUsed($customer->machine_id_list),

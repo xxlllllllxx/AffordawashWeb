@@ -28,28 +28,22 @@ class Main extends CI_Controller
 		}
 	}
 
-	public function viewEmployees()
+	private function getEmployees()
 	{
 		$data = $this->DatabaseModel->getEmployeeList();
-		foreach ($data as $list => $value) {
-			echo "$list $value[name] $value[username] $value[customer_served] <br>";
-		}
+		return $data;
 	}
 
-	public function viewItems()
+	private function getItems()
 	{
 		$data = $this->DatabaseModel->getItemsList();
-		foreach ($data as $list => $value) {
-			echo "$list $value[name] $value[quantity] $value[cost] $value[lowest_price] $value[selling_price] <br>";
-		}
+		return $data;
 	}
 
-	public function viewServices()
+	private function getServices()
 	{
 		$data = $this->DatabaseModel->getServicesList();
-		foreach ($data as $list => $value) {
-			echo "$list $value[name] $value[has_wash] $value[has_dry] $value[wash_price] $value[dry_price] <br>";
-		}
+		return $data;
 	}
 
 	public function viewCustomerTransact()
@@ -126,6 +120,18 @@ class Main extends CI_Controller
 			case 'addService':
 				$this->load->view('manager_view', $_SESSION['user_data']);
 				$this->load->view('forms/add_service');
+				break;
+			case 'viewEmployees':
+				$this->load->view('manager_view', $_SESSION['user_data']);
+				$this->load->view('list/list_employees', $this->getEmployees());
+				break;
+			case 'viewItems':
+				$this->load->view('manager_view', $_SESSION['user_data']);
+				$this->load->view('list/list_items', $this->getItems());
+				break;
+			case 'viewServices':
+				$this->load->view('manager_view', $_SESSION['user_data']);
+				$this->load->view('list/list_services', $this->getServices());
 				break;
 			default:
 				$this->load->view('manager_view', $_SESSION['user_data']);
