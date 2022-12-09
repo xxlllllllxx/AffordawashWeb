@@ -7,10 +7,10 @@ class Main extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('DatabaseModel');
-		$this->load->library('session');
+		session_start();
 	}
 
-	// MODELS
+	// REQUEST TO MODEL (SECURED)
 	private function addData($table, $rawData)
 	{
 		$data = $rawData;
@@ -63,6 +63,8 @@ class Main extends CI_Controller
 				}
 			case 'customer':
 				return ($_SESSION['user_data']['login'] == 'employee' && $this->DatabaseModel->updateCustomer($data));
+			case 'profile':
+				return $this->DatabaseModel->updateProfile($data);
 			default:
 				return false;
 		}
@@ -70,114 +72,82 @@ class Main extends CI_Controller
 
 	private function getEmployees()
 	{
-		$data = $this->DatabaseModel->getEmployeeList();
-		return $data;
+		return $this->DatabaseModel->getEmployeeList();
 	}
 
 	private function getItems()
 	{
-		$data = $this->DatabaseModel->getItemsList();
-		return $data;
+		return  $this->DatabaseModel->getItemsList();
 	}
 
 	private function getServices()
 	{
-		$data = $this->DatabaseModel->getServicesList();
-		return $data;
+		return $this->DatabaseModel->getServicesList();
+	}
+
+	private function getCustomerList()
+	{
+		return $this->DatabaseModel->getCustomerList();
+	}
+
+	//REQUEST FROM VIEWS
+	public function updateEmployee()
+	{
+		$data = array(
+			'id' => $_POST['id'],
+			'salary' => $_POST['salary']
+		);
+		if ($this->updateData('employee', $data)) {
+			$_SESSION['info'] = array('text' => "Employee updated Successfully");
+		} else {
+			$_SESSION['info'] = array('text' => "Failed to update Employee");
+		}
+		header('Location: ' . base_url('main/manager/info'));
+	}
+
+	public function updateItem()
+	{
+		$data = array(
+			'id' => $_POST['id'],
+			'quantity' => $_POST['quantity'],
+			'cost' => $_POST['cost'],
+			'lowest_price' => $_POST['lprice'],
+			'selling_price' => $_POST['sprice']
+		);
+		if ($this->updateData('item', $data)) {
+			$_SESSION['info'] = array('text' => "Item updated Successfully");
+		} else {
+			$_SESSION['info'] = array('text' => "Failed to update Item");
+		}
+		header('Location: ' . base_url('main/manager/info'));
+	}
+
+	public function updateService()
+	{
+		$data = array(
+			'id' => $_POST['id'],
+			'has_wash' => $_POST['has_wash'],
+			'has_dry' => $_POST['has_dry'],
+			'wash_price' => $_POST['wash_price'],
+			'dry_price' => $_POST['dry_price'],
+		);
+		if ($this->updateData('service', $data)) {
+			$_SESSION['info'] = array('text' => "Service updated Successfully");
+		} else {
+			$_SESSION['info'] = array('text' => "Failed to update Service");
+		}
+		header('Location: ' . base_url('main/manager/info'));
 	}
 
 	public function viewCustomerTransact()
 	{
-		$data = $this->DatabaseModel->getCustomerList();
-		foreach ($data as $list => $value) {
-			echo "$list $value[employee] $value[machine_used] $value[items_bought] $value[total_payment] $value[date]<br>";
-		}
-	}
-
-
-	//MIXED VIEWS AND MODELS
-	public function login()
-	{
-		$data = array(
-			'username' => $_POST['username'],
-			'password' => $_POST['password']
-		);
-		$data['login'] = '';
-
-		$data = $this->DatabaseModel->login($data);
-		if ($data['login'] == 'manager') {
-			$_SESSION['user_data'] = $data;
-			header('Location: ' . base_url('main/manager/' . $data['name']));
-		} else if ($data['login'] == 'employee') {
-			$_SESSION['user_data'] = $data;
-			$this->employee('main');
+		if ($_SESSION['user_data']['login'] == 'manager') {
+			header('location: ' . base_url('main/manager/viewCustomerList'));
+		} else if ($_SESSION['user_data']['login'] == 'employee') {
 		} else {
-			$this->index();
+			session_destroy();
+			header('Location: ' . base_url());
 		}
-	}
-
-	//VIEWS
-	public function index()
-	{
-		$this->load->view('layout/header');
-		$this->load->view('login');
-		$this->load->view('layout/footer');
-	}
-
-	public function employee($query)
-	{
-		$_SESSION['user_data'] = $this->DatabaseModel->updateData($_SESSION['user_data']);
-		$this->load->view('layout/header');
-		switch ($query) {
-			case 'main':
-				break;
-			case 'error':
-				break;
-			default:
-				break;
-		}
-		$this->load->view('employee_view', $_SESSION['user_data']);
-		$this->load->view('layout/footer');
-	}
-
-	public function manager($query = '')
-	{
-		$_SESSION['user_data'] = $this->DatabaseModel->updateData($_SESSION['user_data']);
-		$this->load->view('layout/header');
-		switch ($query) {
-			case 'info':
-				$this->load->view('info/insert', $_SESSION['info']);
-				$this->load->view('manager_view', $_SESSION['user_data']);
-				break;
-			case 'addEmployee':
-				$this->load->view('manager_view', $_SESSION['user_data']);
-				$this->load->view('forms/add_employee');
-				break;
-			case 'addItem':
-				$this->load->view('manager_view', $_SESSION['user_data']);
-				$this->load->view('forms/add_item');
-				break;
-			case 'addService':
-				$this->load->view('manager_view', $_SESSION['user_data']);
-				$this->load->view('forms/add_service');
-				break;
-			case 'viewEmployees':
-				$this->load->view('manager_view', $_SESSION['user_data']);
-				$this->load->view('list/list_employees', $this->getEmployees());
-				break;
-			case 'viewItems':
-				$this->load->view('manager_view', $_SESSION['user_data']);
-				$this->load->view('list/list_items', $this->getItems());
-				break;
-			case 'viewServices':
-				$this->load->view('manager_view', $_SESSION['user_data']);
-				$this->load->view('list/list_services', $this->getServices());
-				break;
-			default:
-				$this->load->view('manager_view', $_SESSION['user_data']);
-				break;
-		}
-		$this->load->view('layout/footer');
 	}
 
 	public function saveEmployee()
@@ -229,52 +199,136 @@ class Main extends CI_Controller
 		}
 		header('Location: ' . base_url('main/manager/info'));
 	}
-
-	public function updateEmployee()
+	public function profile($query = '')
 	{
-		$data = array(
-			'id' => $_POST['id'],
-			'salary' => $_POST['salary']
-		);
-		if ($this->updateData('employee', $data)) {
-			$_SESSION['info'] = array('text' => "Employee updated Successfully");
+		if ($_SESSION['user_data']['login'] == 'manager') {
+			if ($query == 'save') {
+				$data = array(
+					'login' => 'manager',
+					'name' => $_POST['name'],
+					'username' => $_POST['username'],
+					'title' => $_POST['title'],
+				);
+				if ($this->updateData('profile', $data)) {
+					$_SESSION['info'] = array('text' => 'Profile Updated Successfully');
+				} else {
+					$_SESSION['info'] = array('text' => 'Failed to update Profile');
+				}
+				header('Location: ' . base_url('main/manager/info'));
+			} else if ($query == 'back') {
+				header('Location: ' . base_url('main/manager'));
+			} else {
+				$this->load->view('forms/profile', $_SESSION['user_data']);
+			}
+		} else if ($_SESSION['user_data']['login'] == 'employee') {
+			if ($query == 'back') {
+				header('Location: ' . base_url('main/employee'));
+			} else {
+				$this->load->view('forms/profile', $_SESSION['user_data']);
+			}
 		} else {
-			$_SESSION['info'] = array('text' => "Failed to update Employee");
+			session_destroy();
+			header('Location: ' . base_url());
 		}
-		header('Location: ' . base_url('main/manager/info'));
 	}
 
-	public function updateItem()
+
+	// LOGIN CONTROL (MANAGER or EMPLOYEE)
+	public function login()
 	{
 		$data = array(
-			'id' => $_POST['id'],
-			'quantity' => $_POST['quantity'],
-			'cost' => $_POST['cost'],
-			'lowest_price' => $_POST['lprice'],
-			'selling_price' => $_POST['sprice']
+			'username' => $_POST['username'],
+			'password' => $_POST['password']
 		);
-		if ($this->updateData('item', $data)) {
-			$_SESSION['info'] = array('text' => "Item updated Successfully");
+		$data['login'] = '';
+
+		$data = $this->DatabaseModel->login($data);
+		if ($data['login'] == 'manager') {
+			$_SESSION['user_data'] = $data;
+			header('Location: ' . base_url('main/manager/' . $data['name']));
+		} else if ($data['login'] == 'employee') {
+			$_SESSION['user_data'] = $data;
+			$this->employee('main');
 		} else {
-			$_SESSION['info'] = array('text' => "Failed to update Item");
+			header('Location: ' . base_url());
 		}
-		header('Location: ' . base_url('main/manager/info'));
 	}
 
-	public function updateService()
+	public function logout()
 	{
-		$data = array(
-			'id' => $_POST['id'],
-			'has_wash' => $_POST['has_wash'],
-			'has_dry' => $_POST['has_dry'],
-			'wash_price' => $_POST['wash_price'],
-			'dry_price' => $_POST['dry_price'],
-		);
-		if ($this->updateData('service', $data)) {
-			$_SESSION['info'] = array('text' => "Service updated Successfully");
+		session_destroy();
+		header('Location: ' . base_url());
+	}
+
+
+
+	//VIEWS
+	public function index()
+	{
+		$this->load->view('layout/header');
+		$this->load->view('login');
+		$this->load->view('layout/footer');
+	}
+
+	public function manager($query = '')
+	{
+		if (isset($_SESSION['user_data']) && $_SESSION['user_data']['login'] == 'manager') {
+			$_SESSION['user_data'] = $this->DatabaseModel->updateData($_SESSION['user_data']);
+			$this->load->view('layout/header');
+			switch ($query) {
+				case 'info':
+					$this->load->view('info/insert', $_SESSION['info']);
+					$this->load->view('manager_view', $_SESSION['user_data']);
+					break;
+				case 'addEmployee':
+					$this->load->view('manager_view', $_SESSION['user_data']);
+					$this->load->view('forms/add_employee');
+					break;
+				case 'addItem':
+					$this->load->view('manager_view', $_SESSION['user_data']);
+					$this->load->view('forms/add_item');
+					break;
+				case 'addService':
+					$this->load->view('manager_view', $_SESSION['user_data']);
+					$this->load->view('forms/add_service');
+					break;
+				case 'viewEmployees':
+					$this->load->view('manager_view', $_SESSION['user_data']);
+					$this->load->view('list/list_employees', $this->getEmployees());
+					break;
+				case 'viewItems':
+					$this->load->view('manager_view', $_SESSION['user_data']);
+					$this->load->view('list/list_items', $this->getItems());
+					break;
+				case 'viewServices':
+					$this->load->view('manager_view', $_SESSION['user_data']);
+					$this->load->view('list/list_services', $this->getServices());
+					break;
+				case 'viewCustomerList':
+					$this->load->view('manager_view', $_SESSION['user_data']);
+					$this->load->view('list/list_customers', $this->getCustomerList());
+					break;
+				default:
+					$this->load->view('manager_view', $_SESSION['user_data']);
+					break;
+			}
+			$this->load->view('layout/footer');
 		} else {
-			$_SESSION['info'] = array('text' => "Failed to update Service");
+			session_destroy();
+			header('Location: ' . base_url());
 		}
-		header('Location: ' . base_url('main/manager/info'));
+	}
+
+	public function employee($query = '')
+	{
+		if (isset($_SESSION['user_data']) && $_SESSION['user_data']['login'] == 'employee') {
+			$_SESSION['user_data'] = $this->DatabaseModel->updateData($_SESSION['user_data']);
+			$this->load->view('layout/header');
+			$this->load->view('employee_view', $_SESSION['user_data']);
+			$this->load->view('layout/footer');
+		} else {
+			session_destroy();
+			header('Location: ' . base_url());
+		}
 	}
 }

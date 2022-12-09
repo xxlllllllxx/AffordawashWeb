@@ -1,11 +1,6 @@
 <?php
 class DatabaseModel extends CI_Model
 {
-    public function signup($table, $data)
-    {
-        $this->db->insert($table, $data);
-    }
-
     public function login($data)
     {
         $manager = $this->db->get_where('tbl_manager', ['manager_username' => $data['username']])->row();
@@ -25,6 +20,7 @@ class DatabaseModel extends CI_Model
                     $data['password'] = '********';
                     $data['name'] = $employee->name;
                     $data['title'] = 'Employee';
+                    $data['salary'] = $employee->employee_salary;
                 }
             }
         }
@@ -39,6 +35,7 @@ class DatabaseModel extends CI_Model
         return $data;
     }
 
+    // CRUD  
     public function addEmployee($data)
     {
         $this->db->db_debug = false;
@@ -94,7 +91,7 @@ class DatabaseModel extends CI_Model
                 'name' => $employee->name,
                 'username' => $employee->employee_username,
                 'salary' => $employee->employee_salary,
-                'customer_served' => 0
+                'customer_served' => $this->getEmployeeServedCount($employee->id)
             );
         }
         return $data;
@@ -142,6 +139,7 @@ class DatabaseModel extends CI_Model
         $data = null;
         foreach ($query->result() as $customer) {
             $data['list'][$customer->id] = array(
+                'id' => $customer->id,
                 'name' => $customer->customer_alias,
                 'employee' => $this->getEmployeeName($customer->employee_id),
                 'machine_used' => $this->deconstructMachineUsed($customer->machine_id_list),
@@ -185,6 +183,18 @@ class DatabaseModel extends CI_Model
         return $this->db->affected_rows();
     }
 
+    public function updateProfile($data)
+    {
+        if ($data['login'] == 'manager') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+    // INTERNAL
+
     private function getEmployeeName($id)
     {
         $this->db->where('id', $id);
@@ -214,7 +224,7 @@ class DatabaseModel extends CI_Model
         foreach ($query->result() as $machine) {
             $str = $machine->service_name;
         }
-        $str = "$str $arr[1]";
+        $str = "$str - $arr[1]";
         return $str;
     }
 
@@ -222,7 +232,7 @@ class DatabaseModel extends CI_Model
     {
         $arrs = explode(':', $str);
         $arr2d = null;
-        $str = 'NO DATA!';
+        $str = '';
         for ($i = 0; $i < count($arrs); $i++) {
             $arr2d[$i] = explode(' ', $arrs[$i]);
             $str .= $arr2d[$i][1] . ' : ' . $this->getItemName($arr2d[$i][0]) . ' - ' .  $arr2d[$i][2] . '<br>';
@@ -234,6 +244,18 @@ class DatabaseModel extends CI_Model
     {
         $this->db->db_debug = false;
         $query = $this->db->get($tbl);
+        if ($query) {
+            return count($query->result());
+        } else {
+            return 0;
+        }
+    }
+
+    private function getEmployeeServedCount($id)
+    {
+        $this->db->db_debug = false;
+        $this->db->where('employee_id', $id);
+        $query = $this->db->get('tbl_customer_transact');
         if ($query) {
             return count($query->result());
         } else {

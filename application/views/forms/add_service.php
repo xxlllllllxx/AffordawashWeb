@@ -1,3 +1,5 @@
+<h1>ADD SERVICE</h1>
+
 <form action="<?= base_url('main/saveService'); ?>" method="POST">
     <input type="text" name="service_title" placeholder="Service name" require="required">
     <input type="checkbox" name="wash" value="true"> WASHING

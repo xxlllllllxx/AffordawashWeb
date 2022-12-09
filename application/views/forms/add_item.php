@@ -1,3 +1,5 @@
+<h1>ADD ITEM</h1>
+
 <form action="<?= base_url('main/saveItem'); ?>" method="POST">
     <input type="text" name="item_name" placeholder="Item Name" require="required">
     <input type="number" name="stock" placeholder="Stock Quantity">

@@ -1,3 +1,4 @@
+<h1>ADD EMPLOYEE</h1>
 <form method="POST" action="<?= base_url('main/saveEmployee'); ?>">
     <input type="text" name="employee_name" placeholder="Enter Employee Name" required="required">
     <input type="text" name="employee_username" placeholder="Enter Employee Username" required="required">
