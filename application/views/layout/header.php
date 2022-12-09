@@ -10,4 +10,3 @@
 </head>
 
 <body>
-    <!-- <?= date('F j, Y h:i:s'); ?> -->
