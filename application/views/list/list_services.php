@@ -10,6 +10,9 @@
                 <td><input type="number" name="dry_price" placeholder="<?= $service['dry_price']; ?>" value="<?= $service['dry_price']; ?>"></td>
                 <td><input type="submit" value="UPDATE SERVICE"></td>
             </form>
+            <form action="<?= base_url('main/delete/service/' . $service['id']) ?>" method="POST">
+                <td><input type="submit" value="DELETE"></td>
+            </form>
         </tr>
     <?php } ?>
 </table>

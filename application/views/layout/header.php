@@ -10,3 +10,10 @@
 </head>
 
 <body>
+    <?php if (isset($_SESSION['user_data'])) { ?>
+        <form id="" class="transact button" action="<?= base_url('main/viewCustomerTransact') ?>" method="post"><input type="submit" value="VIEW CUSTOMER TRANSACTION LIST"></form>
+        <form action="<?= base_url('main/profile') ?>" method="post"><input type="submit" value="PROFILE"></form>
+        <form action="<?= base_url('main/changePass') ?>" method="post"><input type="submit" value="CHANGE PASSWORD"></form>
+        <form action="<?= base_url('main/about') ?>" method="post"><input type="submit" value="ABOUT US"></form>
+        <form action="<?= base_url('main/logout') ?>" method="post"><input type="submit" value="LOGOUT"></form>
+    <?php } ?>

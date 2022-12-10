@@ -6,6 +6,7 @@ class DatabaseModel extends CI_Model
         $manager = $this->db->get_where('tbl_manager', ['manager_username' => $data['username']])->row();
         if ($manager) {
             if ($data['password'] == $manager->manager_password) {
+                $data['id'] = $manager->id;
                 $data['login'] = 'manager';
                 $data['password'] = '********';
                 $data['name'] = $manager->name;
@@ -16,6 +17,7 @@ class DatabaseModel extends CI_Model
             $employee = $this->db->get_where('tbl_employee', ['employee_username' => $data['username']])->row();
             if ($employee) {
                 if ($data['password'] == $employee->employee_password) {
+                    $data['id'] = $employee->id;
                     $data['login'] = 'employee';
                     $data['password'] = '********';
                     $data['name'] = $employee->name;
@@ -186,13 +188,45 @@ class DatabaseModel extends CI_Model
     public function updateProfile($data)
     {
         if ($data['login'] == 'manager') {
-            return true;
+            $this->db->set('name', $data['name']);
+            $this->db->set('manager_username', $data['username']);
+            $this->db->set('title', $data['title']);
+            $this->db->where('id', $data['id']);
+            $this->db->update('tbl_manager');
+            return $this->db->affected_rows();
+        } else if ($data['login'] == 'employee') {
+            $this->db->set('name', $data['name']);
+            $this->db->set('employee_username', $data['username']);
+            $this->db->where('id', $data['id']);
+            $this->db->update('tbl_employee');
+            return $this->db->affected_rows();
         } else {
             return false;
         }
     }
 
+    public function updatePassword($data)
+    {
+        if ($data['login'] == 'manager') {
+            $this->db->set('manager_password', $data['new_password']);
+            $this->db->where(array('id' => $data['id'], 'manager_password' => $data['old_pass']));
+            $this->db->update('tbl_manager');
+            return $this->db->affected_rows();
+        } else if ($data['login'] == 'employee') {
+            $this->db->set('employee_password', $data['new_password']);
+            $this->db->where(array('id' => $data['id'], 'employee_password' => $data['old_pass']));
+            $this->db->update('tbl_employee');
+            return $this->db->affected_rows();
+        } else {
+            return false;
+        }
+    }
 
+    public function delete($table, $id)
+    {
+        $this->db->where('id', $id);
+        return $this->db->delete($table);
+    }
     // INTERNAL
 
     private function getEmployeeName($id)

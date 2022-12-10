@@ -32,10 +32,10 @@ class Main extends CI_Controller
 		}
 	}
 
-	private function updateData($table, $rawData)
+	private function updateData($query, $rawData)
 	{
 		$data = $rawData;
-		switch ($table) {
+		switch ($query) {
 			case 'employee':
 				return $this->DatabaseModel->updateEmployee($data);
 			case 'item':
@@ -64,7 +64,31 @@ class Main extends CI_Controller
 			case 'customer':
 				return ($_SESSION['user_data']['login'] == 'employee' && $this->DatabaseModel->updateCustomer($data));
 			case 'profile':
-				return $this->DatabaseModel->updateProfile($data);
+				if ($this->DatabaseModel->updateProfile($data)) {
+					$_SESSION['user_data']['name'] = $data['name'];
+					if ($_SESSION['user_data']['login'] == 'manager') {
+						$_SESSION['user_data']['title'] = $data['title'];
+					}
+					return true;
+				} else {
+					return false;
+				}
+			case 'changepass':
+				return $this->DatabaseModel->updatePassword($data);
+			default:
+				return false;
+		}
+	}
+
+	private function deleteData($table, $id)
+	{
+		switch ($table) {
+			case 'employee':
+				return $this->DatabaseModel->delete('tbl_employee', $id);
+			case 'item':
+				return $this->DatabaseModel->delete('tbl_item', $id);
+			case 'service':
+				return $this->DatabaseModel->delete('tbl_machine', $id);
 			default:
 				return false;
 		}
@@ -205,6 +229,7 @@ class Main extends CI_Controller
 			if ($query == 'save') {
 				$data = array(
 					'login' => 'manager',
+					'id' => $_SESSION['user_data']['id'],
 					'name' => $_POST['name'],
 					'username' => $_POST['username'],
 					'title' => $_POST['title'],
@@ -218,13 +243,100 @@ class Main extends CI_Controller
 			} else if ($query == 'back') {
 				header('Location: ' . base_url('main/manager'));
 			} else {
+				$this->load->view('layout/header');
+				$this->load->view('manager_view', $_SESSION['user_data']);
 				$this->load->view('forms/profile', $_SESSION['user_data']);
+				$this->load->view('layout/footer');
 			}
 		} else if ($_SESSION['user_data']['login'] == 'employee') {
-			if ($query == 'back') {
+			if ($query == 'save') {
+				$data = array(
+					'login' => 'employee',
+					'id' => $_SESSION['user_data']['id'],
+					'name' => $_POST['name'],
+					'username' => $_POST['username']
+				);
+				if ($this->updateData('profile', $data)) {
+					$_SESSION['info'] = array('text' => 'Profile Updated Successfully');
+				} else {
+					$_SESSION['info'] = array('text' => 'Failed to update Profile');
+				}
+				header('Location: ' . base_url('main/employee/info'));
+			} else if ($query == 'back') {
 				header('Location: ' . base_url('main/employee'));
 			} else {
+				$this->load->view('layout/header');
+				$this->load->view('employee_view', $_SESSION['user_data']);
 				$this->load->view('forms/profile', $_SESSION['user_data']);
+				$this->load->view('layout/footer');
+			}
+		} else {
+			session_destroy();
+			header('Location: ' . base_url());
+		}
+	}
+
+	public function delete($list, $id)
+	{
+		if ($this->deleteData($list, $id)) {
+			$_SESSION['info'] = array('text' => 'Delete Success');
+		} else {
+			$_SESSION['info'] = array('text' => 'Delete Failed');
+		}
+		header('Location: ' . base_url('main/manager/info'));
+	}
+
+	public function changePass($query = '')
+	{
+		if ($_SESSION['user_data']['login'] == 'manager') {
+			if ($query == 'save') {
+				if ($_POST['confirmpass'] == $_POST['newpass']) {
+					$data = array(
+						'login' => 'manager',
+						'id' => $_SESSION['user_data']['id'],
+						'old_pass' => $_POST['oldpass'],
+						'new_password' => $_POST['newpass']
+					);
+					if ($this->updateData('changepass', $data)) {
+						$_SESSION['info'] = array('text' => 'Password Updated Successfully');
+					} else {
+						$_SESSION['info'] = array('text' => 'Failed to update Password');
+					}
+				} else {
+					$_SESSION['info'] = array('text' => 'New password not matched');
+				}
+				header('Location: ' . base_url('main/manager/info'));
+			} else {
+				$this->load->view('layout/header');
+				$this->load->view('manager_view', $_SESSION['user_data']);
+				$this->load->view('forms/change_pass');
+				$this->load->view('layout/footer');
+			}
+		} else if ($_SESSION['user_data']['login'] == 'employee') {
+			if ($query == 'save') {
+				if ($_POST['confirmpass'] == $_POST['newpass']) {
+					$data = array(
+						'login' => 'employee',
+						'id' => $_SESSION['user_data']['id'],
+						'old_pass' => $_POST['oldpass'],
+						'new_password' => $_POST['newpass']
+					);
+					if ($this->updateData('changepass', $data)) {
+						$_SESSION['info'] = array('text' => 'Password Updated Successfully');
+					} else {
+						$_SESSION['info'] = array('text' => 'Failed to update Password');
+					}
+				} else {
+					$_SESSION['info'] = array('text' => 'New password not matched');
+				}
+				header('Location: ' . base_url('main/employee/info'));
+			} else if ($query == 'back') {
+				header('Location: ' . base_url('main/employee'));
+			} else {
+				$this->load->view('layout/header');
+				$this->load->view('employee_view', $_SESSION['user_data']);
+				$this->load->view('forms/change_pass');
+				$this->load->view('layout/footer');
 			}
 		} else {
 			session_destroy();
@@ -324,11 +436,26 @@ class Main extends CI_Controller
 		if (isset($_SESSION['user_data']) && $_SESSION['user_data']['login'] == 'employee') {
 			$_SESSION['user_data'] = $this->DatabaseModel->updateData($_SESSION['user_data']);
 			$this->load->view('layout/header');
-			$this->load->view('employee_view', $_SESSION['user_data']);
+			switch ($query) {
+				case 'info':
+					$this->load->view('info/insert', $_SESSION['info']);
+					$this->load->view('employee_view', $_SESSION['user_data']);
+					break;
+				default:
+					$this->load->view('employee_view', $_SESSION['user_data']);
+					break;
+			}
 			$this->load->view('layout/footer');
 		} else {
 			session_destroy();
 			header('Location: ' . base_url());
 		}
+	}
+
+	public function about()
+	{
+		$this->load->view('layout/header');
+		$this->load->view('about');
+		$this->load->view('layout/footer');
 	}
 }

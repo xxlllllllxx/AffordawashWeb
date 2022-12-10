@@ -9,6 +9,9 @@
                 <td><?= $employee['customer_served']; ?></td>
                 <td><input type="submit" value="UPDATE EMPLOYEE DATA"></td>
             </form>
+            <form action="<?= base_url('main/delete/employee/' . $employee['id']) ?>" method="POST">
+                <td><input type="submit" value="DELETE"></td>
+            </form>
         </tr>
     <?php } ?>
 </table>

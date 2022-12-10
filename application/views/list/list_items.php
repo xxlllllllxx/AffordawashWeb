@@ -10,6 +10,9 @@
                 <td><input type="number" name="sprice" value="<?= $item['selling_price']; ?>" placeholder="<?= $item['selling_price']; ?>"></td>
                 <td><input type="submit" value="UPDATE ITEM DATA"></td>
             </form>
+            <form action="<?= base_url('main/delete/item/' . $item['id']) ?>" method="POST">
+                <td><input type="submit" value="DELETE"></td>
+            </form>
         </tr>
     <?php } ?>
 </table>
