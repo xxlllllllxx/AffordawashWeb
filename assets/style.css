@@ -1,0 +1,22 @@
+body {}
+
+#nav {
+    background-color: #0099ff;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    top: 0px;
+    left: 0;
+    width: 100%;
+}
+
+.nav input {
+    font-size: 9px;
+    padding: 9px 15px;
+    margin: 8px 5px;
+    border-radius: 10px;
+    border: 3px solid white;
+    background-color: #0099ff;
+    color: white;
+    font-family: 'Arial Black', sans-serif;
+}
