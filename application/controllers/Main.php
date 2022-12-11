@@ -3,6 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Main extends CI_Controller
 {
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -114,6 +115,8 @@ class Main extends CI_Controller
 		return $this->DatabaseModel->getCustomerList();
 	}
 
+
+
 	//REQUEST FROM VIEWS
 	public function updateEmployee()
 	{
@@ -168,6 +171,7 @@ class Main extends CI_Controller
 		if ($_SESSION['user_data']['login'] == 'manager') {
 			header('location: ' . base_url('main/manager/viewCustomerList'));
 		} else if ($_SESSION['user_data']['login'] == 'employee') {
+			header('Location: ' . base_url('main/employee/viewCustomerList'));
 		} else {
 			session_destroy();
 			header('Location: ' . base_url());
@@ -344,6 +348,58 @@ class Main extends CI_Controller
 		}
 	}
 
+	public function editCustomer($id = 0)
+	{
+		$_SESSION['customer_edit_id'] = $id;
+		header('Location: ' . base_url('main/employee/editCustomer'));
+	}
+
+	public function deleteCustomer($id = 0)
+	{
+		unset($_SESSION['active_customer']['data'][$id]);
+		$_SESSION['info'] = array('text' => 'Customer information Deleted');
+		header('Location: ' . base_url('main/employee/info'));
+	}
+
+	public function saveCustomerInfo()
+	{
+		$item_string = '';
+		foreach ($this->getItems()['list'] as $item) {
+			if ($_POST["id_$item[id]"] != 0) {
+				$item_string .= ($item_string == '') ? '' : ':';
+				$item_string .= $item['id'] . ' ' . $_POST["id_$item[id]"] . ' ' . $_POST["quantity_$item[id]"];
+			}
+		}
+		$data = array(
+			'service' => (isset($_POST['service_radio'])) ? $_POST['service_radio'] : '',
+			'item' => $item_string,
+		);
+		$_SESSION['active_customer']['data'][$_SESSION['customer_edit_id']]['info'] = $data;
+		$_SESSION['info'] = array('text' => 'Customer Data saved');
+		header('Location: ' . base_url('main/employee/info'));
+	}
+
+	public function completeTransact($query)
+	{
+		$data = array(
+			'customer_alias' => $_SESSION['active_customer']['data'][$query]['name'],
+			'employee_id' => $_SESSION['user_data']['id'],
+			'machine_id_list' => (isset($_SESSION['active_customer']['data'][$query]['info']['service'])) ? $_SESSION['active_customer']['data'][$query]['info']['service'] : '',
+			'item_id_list' => (isset($_SESSION['active_customer']['data'][$query]['info']['item'])) ? $_SESSION['active_customer']['data'][$query]['info']['item'] : '',
+			'transaction_payment' => $_POST['payment'],
+			'transaction_datetime' => 'June',
+		);
+
+		if ($this->addData('customer', $data)) {
+			$_SESSION['info'] = array('text' => "Customer $data[name] saved Successfully");
+			unset($_SESSION['active_customer']['data'][$query]);
+		} else {
+			$_SESSION['info'] = array('text' => "Failed to save Transaction data");
+		}
+		header('Location: ' . base_url('main/employee/info'));
+	}
+
+
 
 	// LOGIN CONTROL (MANAGER or EMPLOYEE)
 	public function login()
@@ -360,6 +416,10 @@ class Main extends CI_Controller
 			header('Location: ' . base_url('main/manager/' . $data['name']));
 		} else if ($data['login'] == 'employee') {
 			$_SESSION['user_data'] = $data;
+			$_SESSION['active_customer']['data'] = array();
+			$_SESSION['id_count'] = 0;
+			$_SESSION['items'] = $this->getItems();
+			$_SESSION['services'] = $this->getServices();
 			$this->employee('main');
 		} else {
 			header('Location: ' . base_url());
@@ -440,9 +500,25 @@ class Main extends CI_Controller
 				case 'info':
 					$this->load->view('info/insert', $_SESSION['info']);
 					$this->load->view('employee_view', $_SESSION['user_data']);
+					$this->load->view('list/list_active_customer', $_SESSION['active_customer']);
+					break;
+				case 'viewCustomerList':
+					$this->load->view('employee_view', $_SESSION['user_data']);
+					$this->load->view('list/list_customers', $this->getCustomerList());
+					break;
+				case 'addCustomer':
+					$_SESSION['active_customer']['data'] += array($_SESSION['id_count'] => array('id' => $_SESSION['id_count'], 'name' => $_POST['customer_name']));
+					$_SESSION['id_count']++;
+					$this->load->view('employee_view', $_SESSION['user_data']);
+					$this->load->view('list/list_active_customer', $_SESSION['active_customer']);
+					break;
+				case 'editCustomer':
+					$this->load->view('employee_view', $_SESSION['user_data']);
+					$this->load->view('forms/edit_transaction', $_SESSION['active_customer']);
 					break;
 				default:
 					$this->load->view('employee_view', $_SESSION['user_data']);
+					$this->load->view('list/list_active_customer', $_SESSION['active_customer']);
 					break;
 			}
 			$this->load->view('layout/footer');

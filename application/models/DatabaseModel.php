@@ -251,27 +251,35 @@ class DatabaseModel extends CI_Model
 
     private function deconstructMachineUsed($str)
     {
-        $arr = explode(' ', $str);
-        $this->db->where('id', $arr[0]);
-        $query = $this->db->get('tbl_machine');
-        $str = 'NO DATA!';
-        foreach ($query->result() as $machine) {
-            $str = $machine->service_name;
+        if ($str == '') {
+            return '';
+        } else {
+            $arr = explode(' ', $str);
+            $this->db->where('id', $arr[0]);
+            $query = $this->db->get('tbl_machine');
+            $str = 'NO DATA!';
+            foreach ($query->result() as $machine) {
+                $str = $machine->service_name;
+            }
+            $str = "$str - $arr[1]";
+            return $str;
         }
-        $str = "$str - $arr[1]";
-        return $str;
     }
 
     private function decunstructItemsBought($str)
     {
-        $arrs = explode(':', $str);
-        $arr2d = null;
-        $str = '';
-        for ($i = 0; $i < count($arrs); $i++) {
-            $arr2d[$i] = explode(' ', $arrs[$i]);
-            $str .= $arr2d[$i][1] . ' : ' . $this->getItemName($arr2d[$i][0]) . ' - ' .  $arr2d[$i][2] . '<br>';
+        if ($str == '') {
+            return '';
+        } else {
+            $arrs = explode(':', $str);
+            $arr2d = null;
+            $str = '';
+            for ($i = 0; $i < count($arrs); $i++) {
+                $arr2d[$i] = explode(' ', $arrs[$i]);
+                $str .= $arr2d[$i][1] . ' : ' . $this->getItemName($arr2d[$i][0]) . ' - ' . $arr2d[$i][2] . '<br>';
+            }
+            return $str;
         }
-        return $str;
     }
 
     private function getTblCount($tbl)
