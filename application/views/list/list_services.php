@@ -1,3 +1,4 @@
+<div class="panel">
 <h1>Services List</h1>
 <table>
     <?php foreach ($list as $service) { ?>
@@ -15,4 +16,4 @@
             </form>
         </tr>
     <?php } ?>
-</table>
+</table></div>

@@ -9,13 +9,33 @@
     <title>Affordawash: Website</title>
     <style>
         body {
-
             background-repeat: no-repeat;
+            background-size: cover;
             background-position: top center;
-            height: 100%;
-            width: 100%;
             margin: 0;
         }
+        div.panel {
+            position: absolute;
+            top: 60px;
+            bottom: 10px;
+            right: 0px;
+            max-width: 40%;
+            background-color: rgba(0, 153, 255, .1);
+            height: auto;
+            width: 40%;
+            min-width: 400px;
+            border: 3px solid #0099ff;
+            overflow: scroll;
+            backdrop-filter: blur(6px);
+        }
+        ::placeholder {
+		color: white;
+	}
+    .pointer{
+        cursor: pointer;
+    }
+
+        
     </style>
 </head>
 
