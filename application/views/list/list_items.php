@@ -4,9 +4,9 @@
     <div class="item_record">
         <form class="update_form" method="POST" action="<?= base_url('main/updateItem'); ?>">
             <input class="input" type="hidden" name="id" value="<?= $item['id']; ?>">
-            <h3 class="iname">
+            <h2 class="iname">
                 <?= $item['name']; ?>
-            </h3>
+            </h2>
             <div class="text_white">
                 <div> STOCK: <input class="input" type="number" name="quantity" value="<?= $item['quantity']; ?>"
                         placeholder="<?= $item['quantity']; ?>"></div>
@@ -27,6 +27,13 @@
 </div>
 
 <style>
+    .add {
+        margin-top: 50px;
+        text-align: center;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        color: white;
+    }
+
     .text_white {
         color: white;
         display: flex;
@@ -35,11 +42,13 @@
     }
 
     .item_record {
+        padding: 10px;
         width: 90%;
         background: #0099ff;
         margin: 20px;
         border-radius: 10px;
         border: 3px solid white;
+        box-sizing: border-box;
         display: flex;
         flex-direction: row;
         align-items: flex-end;
