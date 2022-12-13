@@ -1,10 +1,46 @@
-<h1>ADD ITEM</h1>
+<div class="panel">
+    <h3 class="add">ADD ITEM</h3>
 
-<form action="<?= base_url('main/saveItem'); ?>" method="POST">
-    <input type="text" name="item_name" placeholder="Item Name" require="required">
-    <input type="number" name="stock" placeholder="Stock Quantity">
-    <input type="number" name="cost" placeholder="Cost">
-    <input type="number" name="lowest" placeholder="Lowest Price">
-    <input type="number" name="selling" placeholder="Selling Price">
-    <input type="submit" value="ADD ITEM">
-</form>
+    <form class="add_form" action="<?= base_url('main/saveItem'); ?>" method="POST">
+        <input class="input" type="text" name="item_name" placeholder="Item Name" require="required"><br>
+        <input class="input" type="number" name="stock" placeholder="Stock Quantity"><br>
+        <input class="input" type="number" name="cost" placeholder="Cost"><br>
+        <input class="input" type="number" name="lowest" placeholder="Lowest Price"><br>
+        <input class="input" type="number" name="selling" placeholder="Selling Price"><br>
+        <input class="send input" type="submit" value="ADD ITEM">
+    </form>
+</div>
+
+<style>
+    .add {
+        margin-top: 50px;
+        text-align: center;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        color: white;
+    }
+
+    .input {
+        border-radius: 10px;
+        border: 3px solid white;
+        background: transparent;
+        padding: 15px 10px;
+        width: 50%;
+        margin: auto;
+        left: 0px;
+        right: 0px;
+        color: white;
+    }
+
+    .send {
+        font-weight: bolds;
+        font-family: 'Arial Black', sans-serif;
+        background-color: #0099ff;
+        border-color: #0099ff;
+        cursor: pointer;
+    }
+
+    .add_form {
+        display: flex;
+        flex-direction: column;
+    }
+</style>

@@ -20,13 +20,16 @@
 		align-items: center;
 	}
 
+
 	#login_wrapper {
 		margin-top: 50px;
 		text-align: center;
 		background-color: rgba(0, 153, 255, .2);
+		backdrop-filter: blur(6px);
 		border: 2px solid #0000ff;
 		border-radius: 20px;
 		padding: 50px 30px;
+		margin-bottom: 20%;
 	}
 
 	#login_title {
