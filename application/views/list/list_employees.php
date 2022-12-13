@@ -93,8 +93,8 @@
         color: red;
         border-color: red;
         padding: 10px;
-        margin-bottom: 20px;
-        margin-right: 10px;
+        margin-bottom: 10px;
+        margin-right: 20px;
     }
 
     .update_data {
