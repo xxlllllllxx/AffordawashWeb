@@ -1,7 +1,5 @@
 <div class="panel">
     <h3 class="add">EMPLOYEE LIST</h3>
-
-
     <?php foreach ($list as $employee) { ?>
     <div class="employee_record">
         <form class="update_form" method="POST" action="<?= base_url('main/updateEmployee'); ?>">
