@@ -4,14 +4,14 @@
 		<form method="POST" action="<?= base_url('main/login'); ?>">
 			<input class="login" type="text" name="username" placeholder="Enter Username" required="required"> <br>
 			<input class="login" type="password" name="password" placeholder="Enter Password" required="required"> <br>
-			<input class="login btnLogin" type="submit" value="LOGIN" id="btnLogin">
+			<input class="login btnLogin" onclick="clickRed(this)" type="submit" value="LOGIN" id="btnLogin">
 		</form>
 	</div>
 </div>
 
 <style>
 	body {
-		background-image: url("<?= base_url('assets/res/login.jpg') ?>");
+		background-image: url("<?= base_url('assets/res/Login.jpg') ?>");
 	}
 
 	.login_panel {

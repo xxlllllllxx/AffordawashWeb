@@ -1,12 +1,12 @@
 <div id="manager">
     <div id="managersname">
-    <h1><?= $name ?></h1>
-    <p>AFFORDAWASH <?= $title ?></p>
+        <h1><?= $name ?></h1>
+        <p>AFFORDAWASH <?= $title ?></p>
     </div>
     <div id="managerinfo">
-    <p>Employees <?= $employee_count ?></p>
-    <p>Items <?= $item_count ?></p>
-    <p>Services <?= $service_count ?></p>
+        <p>Employees <?= $employee_count ?></p>
+        <p>Items <?= $item_count ?></p>
+        <p>Services <?= $service_count ?></p>
     </div>
     <div id="manager_buttons">
         <form method="POST" action="<?= base_url('main/manager/addEmployee'); ?>">
@@ -16,23 +16,23 @@
             <input class="pointer" type="submit" value="ADD ITEM">
         </form>
         <form method="POST" action="<?= base_url('main/manager/addService'); ?>" ?>
-            <input class="pointer"type="submit" value="ADD SERVICE">
+            <input class="pointer" type="submit" value="ADD SERVICE">
         </form>
         <form method="POST" action="<?= base_url('main/manager/viewEmployees'); ?>" ?>
-            <input class="pointer"type="submit" value="VIEW EMPLOYEES">
+            <input class="pointer" type="submit" value="VIEW EMPLOYEES">
         </form>
         <form method="POST" action="<?= base_url('main/manager/viewItems'); ?>" ?>
-            <input class="pointer"type="submit" value="VIEW ITEMS">
+            <input class="pointer" type="submit" value="VIEW ITEMS">
         </form>
         <form method="POST" action="<?= base_url('main/manager/viewServices'); ?>" ?>
-            <input class="pointer"type="submit" value="VIEW SERVICES">
+            <input class="pointer" type="submit" value="VIEW SERVICES">
         </form>
     </div>
 </div>
 
 <style>
     body {
-        background-image: url("<?= base_url('assets/res/login.jpg') ?>");
+        background-image: url("<?= base_url('assets/res/Login.jpg') ?>");
     }
 
     #manager {
@@ -71,7 +71,8 @@
         margin: 10px;
         font-family: 'Arial Black', sans-serif;
     }
-    #managerinfo{
+
+    #managerinfo {
         max-width: 600px;
         display: flex;
         flex-wrap: wrap;
@@ -81,7 +82,8 @@
         margin-left: auto;
         font-family: Verdana, Geneva, Tahoma, sans-serif;
     }
-    #managerinfo p{
+
+    #managerinfo p {
         width: 160px;
         padding: 10px 0px;
         background-color: #0099ff;
@@ -89,7 +91,8 @@
         text-align: center;
         border-radius: 50px;
     }
-    #managersname{
+
+    #managersname {
         font-family: Verdana, Geneva, Tahoma, sans-serif;
         margin-left: 30px;
     }

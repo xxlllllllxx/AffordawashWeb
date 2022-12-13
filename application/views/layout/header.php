@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?= base_url('assets/style.css') ?>">
-    <script src="<?= base_url('assets/script.js') ?>"></script>
+    <script type="text/javascript" src="<?= base_url('assets/script.js') ?>"></script>
     <title>Affordawash: Website</title>
     <style>
         body {
@@ -15,6 +15,7 @@
             background-position: top center;
             margin: 0;
         }
+
         div.panel {
             position: absolute;
             top: 60px;
@@ -29,14 +30,14 @@
             overflow: scroll;
             backdrop-filter: blur(6px);
         }
-        ::placeholder {
-		color: white;
-	}
-    .pointer{
-        cursor: pointer;
-    }
 
-        
+        ::placeholder {
+            color: white;
+        }
+
+        .pointer {
+            cursor: pointer;
+        }
     </style>
 </head>
 
