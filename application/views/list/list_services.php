@@ -3,27 +3,27 @@
 
     <?php foreach ($list as $service) { ?>
 
-    <div class="servicerecord">
-        <form class="update_form" method="POST" action="<?= base_url('main/updateService'); ?>">
-            <input type="hidden" name="id" value="<?= $service['id']; ?>">
-            <h2 class="sname">
-                <?= $service['name']; ?>
-            </h2>
-           <div class="check"><span>WASHING</span><input class="cbox" type="checkbox" name="has_wash" value="true" <?=($service['has_wash'] == 'true') ?
-                "checked='checked'" : "unchecked='unchecked'"; ?>>
-            <input class="input" type="number" name="wash_price" placeholder="<?= $service['wash_price']; ?>"
-                value="<?= $service['wash_price']; ?>"></div>
-           <div class="check"><span>DRYING</span><input class="cbox" type="checkbox" name="has_dry" value="true" <?=($service['has_dry'] == 'true') ?
-                "checked='checked'" : "unchecked='unchecked'"; ?>>
-            <input class="input" type="number" name="dry_price" placeholder="<?= $service['dry_price']; ?>"
-                value="<?= $service['dry_price']; ?>"></div>
-            <input class="update_data" type="submit" value="UPDATE SERVICE">
-        </form>
+        <div class="servicerecord">
+            <form class="update_form" method="POST" action="<?= base_url('main/updateService'); ?>">
+                <input type="hidden" name="id" value="<?= $service['id']; ?>">
+                <h2 class="sname">
+                    <?= $service['name']; ?>
+                </h2>
+                <div class="check"><span>WASHING</span><input class="cbox" type="checkbox" name="has_wash" value="true" <?= ($service['has_wash'] == 'true') ?
+                                                                                                                            "checked='checked'" : "unchecked='unchecked'"; ?>>
+                    <input class="input" type="number" name="wash_price" placeholder="<?= $service['wash_price']; ?>" value="<?= $service['wash_price']; ?>">
+                </div>
+                <div class="check"><span>DRYING</span><input class="cbox" type="checkbox" name="has_dry" value="true" <?= ($service['has_dry'] == 'true') ?
+                                                                                                                            "checked='checked'" : "unchecked='unchecked'"; ?>>
+                    <input class="input" type="number" name="dry_price" placeholder="<?= $service['dry_price']; ?>" value="<?= $service['dry_price']; ?>">
+                </div>
+                <input class="update_data" type="submit" value="UPDATE SERVICE">
+            </form>
 
-        <form class="delete_form" action="<?= base_url('main/delete/service/' . $service['id']) ?>" method="POST">
-            <input class="delete_data" type="submit" value="DELETE">
-        </form>
-    </div>
+            <form class="delete_form" action="<?= base_url('main/delete/service/' . $service['id']) ?>" method="POST">
+                <input class="delete_data" type="submit" value="DELETE">
+            </form>
+        </div>
     <?php } ?>
 
 </div>
@@ -38,9 +38,8 @@
 
     .delete_form {
         width: fit-content;
-        display: flex;
-        align-items: flex-end;
     }
+
     .add {
         margin-top: 50px;
         text-align: center;
@@ -73,30 +72,34 @@
         width: 300px;
         display: flex;
     }
-    .check span{
+
+    .check span {
         width: 50px;
         font-family: 'Arial Black', sans-serif;
         color: white;
         font-size: 12px;
         margin-left: 70px;
     }
-    .input{
-    border-radius: 10px;
-    border: 3px solid white;
-    background: transparent;
-    padding: 15px 10px;
-    width: 50%;
-    margin: 10px auto;
-    left: 0px;
-    right: 0px;
-    color: white;
+
+    .input {
+        border-radius: 10px;
+        border: 3px solid white;
+        background: transparent;
+        padding: 15px 10px;
+        width: 50%;
+        margin: 10px auto;
+        left: 0px;
+        right: 0px;
+        color: white;
     }
-    .cbox{
-    width: 17px;
-    height: 17px;
-    margin-top: 20px;
-}
-.delete_data {
+
+    .cbox {
+        width: 17px;
+        height: 17px;
+        margin-top: 20px;
+    }
+
+    .delete_data {
         background-color: transparent;
         border-radius: 10px;
         color: red;

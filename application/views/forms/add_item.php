@@ -2,12 +2,12 @@
     <h3 class="add">ADD ITEM</h3>
 
     <form class="add_form" action="<?= base_url('main/saveItem'); ?>" method="POST">
-        <input class="input" type="text" name="item_name" placeholder="Item Name" require="required"><br>
-        <input class="input" type="number" name="stock" placeholder="Stock Quantity"><br>
-        <input class="input" type="number" name="cost" placeholder="Cost"><br>
-        <input class="input" type="number" name="lowest" placeholder="Lowest Price"><br>
-        <input class="input" type="number" name="selling" placeholder="Selling Price"><br>
-        <input class="send input" type="submit" value="ADD ITEM">
+        <input class="input" type="text" name="item_name" placeholder="Item Name" required="required"><br>
+        <input class="input" type="number" name="stock" placeholder="Stock Quantity" required="required"><br>
+        <input class="input" type="number" name="cost" placeholder="Cost" required="required"><br>
+        <input class="input" type="number" name="lowest" placeholder="Lowest Price" required="required"><br>
+        <input class="input" type="number" name="selling" placeholder="Selling Price" required="required"><br>
+        <input onclick="clickRed(this)" class="send input" type="submit" value="ADD ITEM">
     </form>
 </div>
 

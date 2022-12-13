@@ -6,6 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?= base_url('assets/style.css') ?>">
+    <script>
+        function clickRed(e) {
+            e.style.backgroundColor = 'red';
+            console.log('hello')
+        }
+
+        window.onload = (event) => {
+            console.log("page is fully loaded");
+        };
+    </script>
     <title>Affordawash: Website</title>
     <style>
         body {
@@ -14,28 +24,29 @@
             background-position: top center;
             margin: 0;
         }
+
         div.panel {
             position: absolute;
             top: 60px;
             bottom: 10px;
-            right: 0px;
+            right: 10px;
             max-width: 40%;
             background-color: rgba(0, 153, 255, .1);
             height: auto;
             width: 40%;
             min-width: 400px;
-            border: 3px solid #0099ff;
+            border: 3px solid #ffffff;
             overflow: scroll;
             backdrop-filter: blur(6px);
         }
-        ::placeholder {
-		color: white;
-	}
-    .pointer{
-        cursor: pointer;
-    }
 
-        
+        ::placeholder {
+            color: white;
+        }
+
+        .pointer {
+            cursor: pointer;
+        }
     </style>
 </head>
 
