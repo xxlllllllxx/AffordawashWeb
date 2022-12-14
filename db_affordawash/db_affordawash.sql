@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 13, 2022 at 11:28 AM
+-- Generation Time: Dec 14, 2022 at 09:14 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -37,20 +37,6 @@ CREATE TABLE `tbl_customer_transact` (
   `transaction_datetime` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `tbl_customer_transact`
---
-
-INSERT INTO `tbl_customer_transact` (`id`, `customer_alias`, `employee_id`, `machine_id_list`, `item_id_list`, `transaction_payment`, `transaction_datetime`) VALUES
-(2, 'Diero', 5, '1 200', '1 3 30:4 5 60', 159, '12/07/2022 11:48:39 am'),
-(3, 'Diero', 1, '1 200', '1 3 30:2 5 60', 159, '12/07/2022 11:48:40 am'),
-(4, 'Diero', 1, '1 200', '1 3 30:2 5 60', 159, '12/07/2022 11:48:41 am'),
-(5, 'Diero', 1, '1 200', '1 3 30:2 5 60', 159, '12/07/2022 11:55:35 am'),
-(6, 'Diero', 1, '1 200', '1 3 30:2 5 60', 159, '12/07/2022 11:56:55 am'),
-(7, 'Diero', 1, '6 200', '5 2 16:8 2 22', 159, '12/07/2022 12:34:06 pm'),
-(12, 'fgdfg', 29, '', '', 0, 'June'),
-(13, 'fff', 29, '6 54', '5 3 24:7 2 0', 0, 'June');
-
 -- --------------------------------------------------------
 
 --
@@ -64,23 +50,6 @@ CREATE TABLE `tbl_employee` (
   `name` text NOT NULL,
   `employee_salary` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tbl_employee`
---
-
-INSERT INTO `tbl_employee` (`id`, `employee_username`, `employee_password`, `name`, `employee_salary`) VALUES
-(29, '23', '123', '123', 123),
-(31, 'fsd', 'sdf', 'fdsdf', 550),
-(32, '1234', '1234', 'calim', 124),
-(33, '123', '213', 'dfs', 123),
-(34, 'fds', 'fdsdf', 'fddsf', 550),
-(35, 'dfs', 'dfsd', 'fdsf', 550),
-(36, 'll', 'll', 'll', 550),
-(37, 'gff', 'g', 'Lewis', 550),
-(38, 'reter', 'rtert', 'rtet', 550),
-(40, 'sgsg', 'gsg', 'sgsg', 550),
-(41, 'fg', 'fg5', 'fg', 45);
 
 -- --------------------------------------------------------
 
@@ -97,18 +66,6 @@ CREATE TABLE `tbl_item` (
   `item_selling_price` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `tbl_item`
---
-
-INSERT INTO `tbl_item` (`id`, `item_name`, `item_quantity`, `item_cost`, `item_lowest_price`, `item_selling_price`) VALUES
-(5, 'Surfd', 50, 6, 8, 8),
-(7, 'Surf333', 333, 33, 33, 0),
-(8, 'item 2', 11, 11, 11, 11),
-(9, '11', 11, 11, 11, 11),
-(10, '', 0, 0, 0, 0),
-(11, 'hdh', 4, 543, 45, 45);
-
 -- --------------------------------------------------------
 
 --
@@ -123,16 +80,6 @@ CREATE TABLE `tbl_machine` (
   `washing_price` double NOT NULL,
   `drying_price` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tbl_machine`
---
-
-INSERT INTO `tbl_machine` (`id`, `service_name`, `washing`, `drying`, `washing_price`, `drying_price`) VALUES
-(4, '214', 'true', 'true', 44, 545),
-(6, 'gggg', 'false', 'true', 0, 54),
-(7, 'fggfgf', 'true', 'false', 56, 0),
-(8, 'er', 'true', 'false', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -201,13 +148,13 @@ ALTER TABLE `tbl_manager`
 -- AUTO_INCREMENT for table `tbl_customer_transact`
 --
 ALTER TABLE `tbl_customer_transact`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `tbl_employee`
 --
 ALTER TABLE `tbl_employee`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `tbl_item`

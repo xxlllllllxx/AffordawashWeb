@@ -509,8 +509,7 @@ class Main extends CI_Controller
 				case 'addCustomer':
 					$_SESSION['active_customer']['data'] += array($_SESSION['id_count'] => array('id' => $_SESSION['id_count'], 'name' => $_POST['customer_name']));
 					$_SESSION['id_count']++;
-					$this->load->view('employee_view', $_SESSION['user_data']);
-					$this->load->view('list/list_active_customer', $_SESSION['active_customer']);
+					header('Location: ' . base_url('main/employee'));
 					break;
 				case 'editCustomer':
 					$this->load->view('employee_view', $_SESSION['user_data']);

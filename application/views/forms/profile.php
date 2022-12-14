@@ -3,10 +3,9 @@
     <form class="add_form" action="<?= base_url('main/profile/') ?>" method="POST">
         <input class="input" type="text" name="name" value="<?= $name ?>">
         <input class="input" type="text" name="username" value="<?= $username ?>">
-        <input class="input" type="text" name="title" value="<?= $title ?>" <?=($login == 'manager') ? '' :
-    "disabled='disabled'" ?>>
+        <input class="input" type="text" name="title" value="<?= $title ?>" <?= ($login == 'manager') ? '' : "disabled='disabled'" ?>>
         <?php if ($login == 'employee')
-            echo "<input type='text' value='$salary' disabled='disabled'>" ?>
+            echo "<input type='text' class='input' value='$salary' disabled='disabled'>" ?>
         <input class="send input" type="submit" value="SAVE" formaction="<?= base_url('main/profile/save') ?>">
         <input class="send input" type="submit" formaction="<?= base_url('main/profile/back') ?>" value="BACK">
     </form>
