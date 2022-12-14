@@ -1,14 +1,23 @@
-<h1 class="employee">Employee <?= $name ?>
-</h1>
-<p class="affordawash">AFFORDAWASH <?= $title ?>
-</p>
+<div id="employee">
+    <h1 class="employee">Employee <?= $name ?></h1>
+    <p class="affordawash">AFFORDAWASH <?= $title ?></p>
 
-<form action="<?= base_url('main/employee/addCustomer') ?> " method="post">
-    <input type="text" placeholder="Enter Customer name" name="customer_name" required="required" class="textbox">
-    <input type="submit" value="Enter a new Customer's Name" id="newcustomer">
-</form>
--
+    <form action="<?= base_url('main/employee/addCustomer') ?> " method="post">
+        <input type="text" placeholder="Enter Customer name" name="customer_name" required="required" class="textbox">
+        <input type="submit" value="Enter a new Customer's Name" id="newcustomer">
+    </form>
+</div>
 <style>
+    body {
+        background-image: url("<?= base_url('assets/res/Login.jpg') ?>");
+    }
+
+    #employee {
+        width: 60%;
+        min-width: 500;
+        padding: 10px;
+    }
+
     .textbox {
         font-family: 'Courier New', Courier, monospace;
         font-size: 13px;
@@ -28,7 +37,7 @@
         font-family: Verdana, Geneva, Tahoma, sans-serif;
         font-weight: bold;
         color: white;
-        text-shadow: 2px 2px 4px #000000;
+        text-shadow: 2px 2px 4px #0099ff;
     }
 
     .affordawash {
@@ -38,7 +47,7 @@
         font-family: Verdana, Geneva, Tahoma, sans-serif;
         font-weight: bold;
         color: white;
-        text-shadow: 2px 2px 4px #000000;
+        text-shadow: 2px 2px 4px #0099ff;
     }
 
 
@@ -50,7 +59,7 @@
         border-radius: 10px;
         font-weight: bold;
         color: #ffffff;
-        border-width: 0;
+        border-width: 3px;
         padding: 10px;
         margin-left: 8px;
         margin-bottom: 5px;
