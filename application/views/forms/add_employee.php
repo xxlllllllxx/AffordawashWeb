@@ -2,13 +2,16 @@
     <h3 class="add">ADD EMPLOYEE</h3>
     <form class="add_form" method="POST" action="<?= base_url('main/saveEmployee'); ?>">
         <input class="input" type="text" name="employee_name" placeholder="Enter Employee Name" required="required"><br>
-        <input class="input" type="text" name="employee_username" placeholder="Enter Employee Username" required="required"><br>
-        <input class="input" type="password" name="employee_password" placeholder="Enter Employee Password" required="required"><br>
-        <input class="input" type="number" name="employee_salary" placeholder="Enter Employee Salary" required="required"><br>
+        <input class="input" type="text" name="employee_username" placeholder="Enter Employee Username"
+            required="required"><br>
+        <input class="input" type="password" name="employee_password" placeholder="Enter Employee Password"
+            required="required"><br>
+        <input class="input" type="number" name="employee_salary" placeholder="Enter Employee Salary"
+            required="required"><br>
         <input onclick="clickRed(this)" class="send input" type="submit" value="ADD EMPLOYEE">
     </form>
 </div>
-
+//COMMENT KO TO
 <style>
     .add {
         margin-top: 50px;
