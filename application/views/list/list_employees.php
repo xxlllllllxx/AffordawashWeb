@@ -1,24 +1,26 @@
 <div class="panel">
     <h3 class="add">EMPLOYEE LIST</h3>
-    <?php foreach ($list as $employee) { ?>
-        <div class="employee_record">
-            <form class="update_form" method="POST" action="<?= base_url('main/updateEmployee'); ?>">
-                <input type="hidden" name="id" value="<?= $employee['id']; ?>">
-                <h3 class="ename">
-                    <?= $employee['name']; ?>
-                </h3>
-                <h4 class="uname">@ <?= $employee['username']; ?>
-                </h4>
-                <div class="salary">SALARY: <input class="input" type="number" name="salary" placeholder="<?= $employee['salary']; ?>" value="<?= $employee['salary']; ?>"></div>
-                <div class="served">CUSTOMER SERVED: <?= $employee['customer_served']; ?>
-                </div>
-                <input class="update_data" type="submit" value="UPDATE EMPLOYEE DATA">
-            </form>
-            <form class="delete_form" action="<?= base_url('main/delete/employee/' . $employee['id']) ?>" method="POST">
-                <input class="delete_data" type="submit" value="DELETE">
-            </form>
-        </div>
-    <?php } ?>
+    <?php if (isset($list)) {
+        foreach ($list as $employee) { ?>
+            <div class="employee_record">
+                <form class="update_form" method="POST" action="<?= base_url('main/updateEmployee'); ?>">
+                    <input type="hidden" name="id" value="<?= $employee['id']; ?>">
+                    <h3 class="ename">
+                        <?= $employee['name']; ?>
+                    </h3>
+                    <h4 class="uname">@ <?= $employee['username']; ?>
+                    </h4>
+                    <div class="salary">SALARY: <input class="input" type="number" name="salary" placeholder="<?= $employee['salary']; ?>" value="<?= $employee['salary']; ?>"></div>
+                    <div class="served">CUSTOMER SERVED: <?= $employee['customer_served']; ?>
+                    </div>
+                    <input class="update_data" type="submit" value="UPDATE EMPLOYEE DATA">
+                </form>
+                <form class="delete_form" action="<?= base_url('main/delete/employee/' . $employee['id']) ?>" method="POST">
+                    <input class="delete_data" type="submit" value="DELETE">
+                </form>
+            </div>
+    <?php }
+    } ?>
 </div>
 
 <style>
