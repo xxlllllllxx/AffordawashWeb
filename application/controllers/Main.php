@@ -387,7 +387,7 @@ class Main extends CI_Controller
 			'machine_id_list' => (isset($_SESSION['active_customer']['data'][$query]['info']['service'])) ? $_SESSION['active_customer']['data'][$query]['info']['service'] : '',
 			'item_id_list' => (isset($_SESSION['active_customer']['data'][$query]['info']['item'])) ? $_SESSION['active_customer']['data'][$query]['info']['item'] : '',
 			'transaction_payment' => $_POST['payment'],
-			'transaction_datetime' => 'June',
+			'transaction_datetime' => date('l, F j, Y g:i a'),
 		);
 
 		if ($this->addData('customer', $data)) {
