@@ -1,6 +1,6 @@
 to sync database
-> paste the whole db_affordawash folder from fetched project files to xampp >mysql > data
-
+> create db_affordawash database in xampp phpmyadmin
+> import db_affordawash.sql from folder db_affordawash
 
 
 
