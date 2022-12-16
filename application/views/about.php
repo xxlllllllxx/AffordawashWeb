@@ -1,4 +1,4 @@
-<div class="login_panel">
+<div class="about_panel">
     <div id="wrapper">
         <h1 class="title">ABOUT US</h1>
         <form action="<?= base_url('main/' . $_SESSION['user_data']['login']) ?>" method="post">
@@ -17,7 +17,7 @@
         background-image: url("<?= base_url('assets/res/login.jpg') ?>");
     }
 
-    .login_panel {
+    .about_panel {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -30,8 +30,7 @@
         background-color: rgba(0, 153, 255, .2);
         backdrop-filter: blur(6px);
         border: 2px solid #0000ff;
-        padding: 50px 30px;
-
+        padding: 50px 90px;
         border-radius: 10px;
     }
 
