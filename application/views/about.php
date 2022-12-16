@@ -1,5 +1,6 @@
 <div class="about_panel">
     <div id="wrapper">
+
         <h1 class="title">ABOUT US</h1>
         <form action="<?= base_url('main/' . $_SESSION['user_data']['login']) ?>" method="post">
             <h4 class="names">ESTRELLA, DIERO RENEEL</h4>
