@@ -1,6 +1,8 @@
 <div id="employee">
-    <h1 class="employee">Employee <?= $name ?></h1>
-    <p class="affordawash">AFFORDAWASH <?= $title ?></p>
+    <h1 class="employee">Employee <?= $name ?>
+    </h1>
+    <p class="affordawash">AFFORDAWASH <?= $title ?>
+    </p>
 
     <form action="<?= base_url('main/employee/addCustomer') ?> " method="post">
         <input type="text" placeholder="Enter Customer name" name="customer_name" required="required" class="textbox">

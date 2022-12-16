@@ -1,18 +1,24 @@
 <div id="panel">
     <?php
     foreach ($data as $info) { ?>
-        <form class="container" action="<?= base_url('main/edit/') ?>" method="post">
-            <h3 class="customer_name"><?= $info['name'] ?></h3>
-            <div class="payment">PAYMENT
-                <input type="number" name="payment" value="<?= (isset($info['payment'])) ? $info['payment'] : 0 ?>" class="input" style="width: 120px">
-            </div>
-            <br>
-            <input formaction="<?= base_url('main/editCustomer/' . $info['id']) ?>" type="submit" value="EDIT" id="finalsubs">
-            <input formaction="<?= base_url('main/deleteCustomer/' . $info['id']) ?>" type="submit" value="DELETE" id="finalsubs">
-            <input formaction="<?= base_url('main/completeTransact/' . $info['id']) ?>" type="submit" value="COMPLETE TRANSACTION" id="completetransaction">
+    <form class="container" action="<?= base_url('main/edit/') ?>" method="post">
+        <h3 class="customer_name">
+            <?= $info['name'] ?>
+        </h3>
+        <div class="payment">PAYMENT
+            <input type="number" name="payment" value="<?=(isset($info['payment'])) ? $info['payment'] : 0 ?>"
+                class="input" style="width: 120px">
+        </div>
+        <br>
+        <input formaction="<?= base_url('main/editCustomer/' . $info['id']) ?>" type="submit" value="EDIT"
+            id="finalsubs">
+        <input formaction="<?= base_url('main/deleteCustomer/' . $info['id']) ?>" type="submit" value="DELETE"
+            id="delete">
+        <input formaction="<?= base_url('main/completeTransact/' . $info['id']) ?>" type="submit"
+            value="COMPLETE TRANSACTION" id="completetransaction">
 
-            <br>
-        </form>
+        <br>
+    </form>
     <?php } ?>
 </div>
 <style>
@@ -21,22 +27,23 @@
     }
 
     .container {
+        border-radius: 20px;
+        padding: 5px;
         border: 5px solid #0099ff;
         max-width: 40%;
-        width: 40%;
+        width: 35%;
         min-width: 400px;
-        margin: 5px;
+        margin-left: 50px;
     }
 
     .customer_name {
+        font-family: Arial, Helvetica, sans-serif;
         display: inline;
-        color: #ffffff;
-        text-shadow: 0px 0px 3px #0099ff;
-        background-color: #0099ff;
+        color: black;
         font-size: 20px;
         padding: 5px;
-        border-radius: 4px;
         margin-left: 5px;
+
     }
 
     .input {
@@ -74,41 +81,56 @@
         padding: 15px 10px;
         width: 50%;
         margin: auto;
-        left: 0px;
-        right: 0px;
+        margin-left: 20px;
+        margin-right: 20px;
         color: white;
     }
 
     #completetransaction {
         cursor: pointer;
         border-color: #ffffff;
-        margin-bottom: 9px;
+        margin-bottom: 10px;
         border-radius: 10px;
         font-weight: bold;
         color: #ffffff;
         padding: 10px;
         margin-left: 12px;
         border-width: 0;
-        margin-bottom: 5px;
         background-color: #0099ff;
+        margin-left: 20px;
     }
 
 
 
 
     #finalsubs {
-        margin-top: 8px;
+        margin-top: 15px;
         cursor: pointer;
         border-color: #ffffff;
-        margin-bottom: 9px;
         border-radius: 10px;
         font-weight: bold;
         color: #ffffff;
         border-width: 0;
         padding: 10px;
         margin-left: 8px;
-        margin-bottom: 5px;
         background-color: #0099ff;
+        margin-left: 30px;
+        margin-bottom: 10px;
+    }
+
+    #delete {
+        margin-top: 15px;
+        cursor: pointer;
+        border-color: #ffffff;
+        margin-bottom: 10px;
+        border-radius: 10px;
+        font-weight: bold;
+        color: #ffffff;
+        border-width: 0;
+        padding: 10px;
+        margin-left: 8px;
+        background-color: #0099ff;
+        margin-left: 20px;
     }
 
 
@@ -126,5 +148,12 @@
         border-width: 0;
         margin-bottom: 5px;
         background-color: #0099ff;
+    }
+
+    .payment {
+        margin-top: 20px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: lighter;
+        margin-left: 80px;
     }
 </style>
