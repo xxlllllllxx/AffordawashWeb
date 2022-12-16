@@ -11,7 +11,7 @@
         <input onclick="clickRed(this)" class="send input" type="submit" value="ADD EMPLOYEE">
     </form>
 </div>
-//COMMENT COMMENT
+
 <style>
     .add {
         margin-top: 50px;
