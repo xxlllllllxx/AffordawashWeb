@@ -40,8 +40,6 @@
         margin-top: 5px;
         color: white;
         font-family: Arial, Helvetica, sans-serif;
-
-
     }
 
     .date_time {
@@ -69,7 +67,6 @@
 
     .customer_list {
         width: 90%;
-        height: 70%;
         background: #0099ff;
         margin: 20px;
         border-radius: 10px;
