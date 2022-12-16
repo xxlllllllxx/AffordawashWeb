@@ -8,7 +8,7 @@
 		</form>
 	</div>
 </div>
-//comment comment
+
 <style>
 	body {
 		background-image: url("<?= base_url('assets/res/Login.jpg') ?>");
