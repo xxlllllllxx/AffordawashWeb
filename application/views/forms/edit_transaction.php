@@ -2,46 +2,43 @@
     <h3 class="add">CUSTOMER TRANSACTION</h3>
     <p class="customername">
         <?= $data[$_SESSION['customer_edit_id']]['name']; ?>
-            </h2>
-            <form autocomplete="off" action="" method="POST">
+        </h2>
+    <form autocomplete="off" action="" method="POST">
 
-                <h3 class="service">Services</h3>
-                <div id="">
-                    <?php foreach ($_SESSION['services']['list'] as $service) { ?>
+        <h3 class="service">Services</h3>
+        <div id="">
+            <?php if (isset($_SESSION['services']['list'])) {
+                foreach ($_SESSION['services']['list'] as $service) { ?>
                     <div id="services">
                         <h2 class="service_title">
                             <?= $service['name'] ?>
                         </h2>
-                        <input type="radio" name="service_radio" id="cbox"
-                            value="<?= $service['id']; ?> <?= $service['wash_price'] + $service['dry_price'] ?>">
+                        <input type="radio" name="service_radio" id="cbox" value="<?= $service['id']; ?> <?= $service['wash_price'] + $service['dry_price'] ?>">
 
-                        <input type="checkbox" id="cbox1" onclick="return false" <?=($service['has_wash'] == 'true') ? 
-                            'checked' : '' ?>>
+                        <input type="checkbox" id="cbox1" onclick="return false" <?= ($service['has_wash'] == 'true') ?
+                                                                                        'checked' : '' ?>>
                         <p id="cbox2"> WASH</p>
-                        <input type="checkbox" id="cbox1" onclick="return false" <?=($service['has_dry'] == 'true') ? 
-                            'checked' : '' ?>>
+                        <input type="checkbox" id="cbox1" onclick="return false" <?= ($service['has_dry'] == 'true') ?
+                                                                                        'checked' : '' ?>>
                         <p id="cbox2">DRY
-                        </p><input type="number" id="cbox3"
-                            value="<?= $service['wash_price'] + $service['dry_price'] ?>" readonly="readonly">
+                        </p><input type="number" id="cbox3" value="<?= $service['wash_price'] + $service['dry_price'] ?>" readonly="readonly">
 
                     </div>
-                    <?php } ?>
-                </div>
-                <h3 class="service">Items</h3>
-                <?php foreach ($_SESSION['items']['list'] as $item) { ?>
+            <?php }
+            } ?>
+        </div>
+        <h3 class="service">Items</h3>
+        <?php if (isset($_SESSION['services']['list'])) {
+            foreach ($_SESSION['items']['list'] as $item) { ?>
                 <div id="services_items">
                     <h3 class="service_title">
                         <?= $item['name'] ?>
                     </h3>
-                    <input class="ID" id="id<?= $item['id'] ?>" name="id_<?= $item['id'] ?>" type="number" value="0"
-                        readonly="readonly">
-                    <input class="ID" id="quantity<?= $item['id'] ?>" name="quantity_<?= $item['id'] ?>" type="number"
-                        value="0" readonly="readonly">
+                    <input class="ID" id="id<?= $item['id'] ?>" name="id_<?= $item['id'] ?>" type="number" value="0" readonly="readonly">
+                    <input class="ID" id="quantity<?= $item['id'] ?>" name="quantity_<?= $item['id'] ?>" type="number" value="0" readonly="readonly">
 
-                    <span onclick="add(<?= $item['id'] ?>, <?= $item['selling_price']; ?>,<?= $item['quantity'] ?>)"
-                        class="span">ADD</span>
-                    <span onclick="minus(<?= $item['id'] ?>, <?= $item['selling_price']; ?> )"
-                        class="span1">MINUS</span>
+                    <span onclick="add(<?= $item['id'] ?>, <?= $item['selling_price']; ?>,<?= $item['quantity'] ?>)" class="span">ADD</span>
+                    <span onclick="minus(<?= $item['id'] ?>, <?= $item['selling_price']; ?> )" class="span1">MINUS</span>
                     <script>
                         function add(id, price, stock) {
                             const counter = document.querySelector("#id" + id);
@@ -66,9 +63,10 @@
                         }
                     </script>
                 </div>
-                <?php } ?>
-                <input formaction="<?= base_url('main/saveCustomerInfo') ?>" type="submit" value="SAVE" id="saveback">
-                <input formaction="<?= base_url('main/employee'); ?>" type="submit" value="BACK" id="saveback2">
+        <?php }
+        } ?>
+        <input formaction="<?= base_url('main/saveCustomerInfo') ?>" type="submit" value="SAVE" id="saveback">
+        <input formaction="<?= base_url('main/employee'); ?>" type="submit" value="BACK" id="saveback2">
 
 </div>
 
