@@ -10,8 +10,8 @@
                 class="input" style="width: 120px">
         </div>
         <br>
-        <input formaction="<?= base_url('main/editCustomer/' . $info['id']) ?>" type="submit" value="EDIT"
-            id="finalsubs">
+        <input formaction="<?= base_url('main/editCustomer/' . $info['id']) ?>" type="submit"
+            value="ADD ITEMS AND SERVICE" id="finalsubs">
         <input formaction="<?= base_url('main/deleteCustomer/' . $info['id']) ?>" type="submit" value="DELETE"
             id="delete">
         <input formaction="<?= base_url('main/completeTransact/' . $info['id']) ?>" type="submit"
@@ -27,6 +27,7 @@
     }
 
     .container {
+        margin-top: 10px;
         border-radius: 20px;
         padding: 5px;
         border: 5px solid #0099ff;
@@ -114,7 +115,7 @@
         padding: 10px;
         margin-left: 8px;
         background-color: #0099ff;
-        margin-left: 30px;
+        margin-left: 25px;
         margin-bottom: 10px;
     }
 
