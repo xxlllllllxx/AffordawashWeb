@@ -381,6 +381,7 @@ class Main extends CI_Controller
 
 	public function completeTransact($query)
 	{
+		date_default_timezone_set('Asia/Manila');
 		$data = array(
 			'customer_alias' => $_SESSION['active_customer']['data'][$query]['name'],
 			'employee_id' => $_SESSION['user_data']['id'],
