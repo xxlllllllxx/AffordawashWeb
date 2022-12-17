@@ -47,7 +47,6 @@
         margin-left: 5px;
         font-size: 100%;
         font-family: Verdana, Geneva, Tahoma, sans-serif;
-        font-weight: bold;
         color: white;
         text-shadow: 2px 2px 4px #0099ff;
     }
