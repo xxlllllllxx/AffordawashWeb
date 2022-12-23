@@ -1,9 +1,9 @@
 LINK: 
 ###################
 https://github.com/xxlllllllxx/Affordawash_Web 
-DATABASE: 
 ###################
 
+DATABASE: 
 to sync database
 *******************
 -  Create db_affordawash database in xampp phpmyadmin
