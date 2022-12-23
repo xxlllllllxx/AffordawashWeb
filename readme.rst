@@ -14,6 +14,15 @@ INITIAL LOGIN:
 - Username: Admin1234
 - Password: Admin1234
 
+*******************
+GROUP #1
+*******************
+Team Leader: ESTRELLA, DIERO RENEEL
+Database and Controller: MASALLO, LEWIS DAVERIEL
+UI Designer: CALIM, ARWYN
+Support Programmer: SANTOS, EONRICO
+Support Programmer: SEGGUEP, CHRISTIAN
+Documentation: BERNARDO JOHN LUIS
 
 ###################
 What is CodeIgniter
