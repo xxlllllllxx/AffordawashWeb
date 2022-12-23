@@ -5,10 +5,10 @@ https://github.com/xxlllllllxx/Affordawash_Web
 
 DATABASE: 
 *******************
-to sync database
-- create db_affordawash database in xampp phpmyadmin
-- import db_affordawash.sql from folder db_affordawash
-*******************
+to sync database__
+- create db_affordawash database in xampp phpmyadmin__
+- import db_affordawash.sql from folder db_affordawash__
+
 
 ###################
 What is CodeIgniter
