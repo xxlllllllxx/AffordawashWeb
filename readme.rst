@@ -8,8 +8,8 @@ DATABASE:
 *******************
 to sync database
 *******************
--  `Create db_affordawash database in xampp phpmyadmin`_
--  `import db_affordawash.sql from folder db_affordawash`_
+-  Create db_affordawash database in xampp phpmyadmin_
+-  import db_affordawash.sql from folder db_affordawash_
 
 
 ###################
