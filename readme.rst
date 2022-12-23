@@ -2,7 +2,6 @@
 LINK: https://github.com/xxlllllllxx/Affordawash_Web 
 ###################
 
-*******************
 DATABASE: 
 to sync database
 -  Create db_affordawash database in xampp phpmyadmin
@@ -12,7 +11,6 @@ INITIAL LOGIN:
 - Username: Admin1234
 - Password: Admin1234
 
-*******************
 
 ###################
 What is CodeIgniter
