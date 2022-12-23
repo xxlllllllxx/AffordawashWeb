@@ -2,10 +2,10 @@
 LINK: https://github.com/xxlllllllxx/Affordawash_Web 
 ###################
 
-DATABASE: 
-to sync database
--  Create db_affordawash database in xampp phpmyadmin
--  import db_affordawash.sql from the folder db_affordawash
+DATABASE: _
+to sync database _
+-  Create db_affordawash database in xampp phpmyadmin _
+-  import db_affordawash.sql from the folder db_affordawash _
 
 INITIAL LOGIN: 
 - Username: Admin1234
