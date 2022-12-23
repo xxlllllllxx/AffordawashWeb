@@ -19,7 +19,7 @@ GROUP #1
 *******************
 Team Leader: ESTRELLA, DIERO RENEEL
 
-Database and Controller: MASALLO, LEWIS DAVERIEL
+Database and Main Programmer: MASALLO, LEWIS DAVERIEL
 
 UI Designer: CALIM, ARWYN
 
