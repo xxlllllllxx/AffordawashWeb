@@ -10,11 +10,6 @@ to sync database
 - import db_affordawash.sql from folder db_affordawash
 *******************
 
-
-
-
-
-
 ###################
 What is CodeIgniter
 ###################
