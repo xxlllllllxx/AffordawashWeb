@@ -1,6 +1,5 @@
 ###################
-LINK: 
-https://github.com/xxlllllllxx/Affordawash_Web 
+LINK: https://github.com/xxlllllllxx/Affordawash_Web 
 ###################
 
 *******************
