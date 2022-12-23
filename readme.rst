@@ -1,10 +1,14 @@
 LINK: 
-#### https://github.com/xxlllllllxx/Affordawash_Web ####
+################### 
+https://github.com/xxlllllllxx/Affordawash_Web 
+###################
 
+DATABASE: 
+*******************
 to sync database
-> create db_affordawash database in xampp phpmyadmin
-> import db_affordawash.sql from folder db_affordawash
-
+- create db_affordawash database in xampp phpmyadmin
+- import db_affordawash.sql from folder db_affordawash
+*******************
 
 
 
