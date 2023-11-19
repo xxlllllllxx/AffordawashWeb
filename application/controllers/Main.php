@@ -414,7 +414,7 @@ class Main extends CI_Controller
 		$data = $this->DatabaseModel->login($data);
 		if ($data['login'] == 'manager') {
 			$_SESSION['user_data'] = $data;
-			header('Location: ' . base_url('main/manager/' . $data['name']));
+			header('Location: ' . base_url('main/manager/'));
 		} else if ($data['login'] == 'employee') {
 			$_SESSION['user_data'] = $data;
 			$_SESSION['active_customer']['data'] = array();
