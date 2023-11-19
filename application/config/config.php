@@ -23,7 +23,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/AffordawashWeb/';
+$config['base_url'] = 'http://localhost/Affordawash_web/';
 
 /*
 |--------------------------------------------------------------------------
@@ -52,7 +52,7 @@ $config['index_page'] = '';
 |
 | WARNING: If you set this to 'PATH_INFO', URIs will always be URL-decoded!
 */
-$config['uri_protocol']    = 'PATH_INFO';
+$config['uri_protocol']    = 'QUERY_STRING';
 
 
 /*
